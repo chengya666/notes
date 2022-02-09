@@ -1,0 +1,63 @@
+  vue-router：
+     默认 hash 模式 （有锚点）(记录跳转的路径，可以产生历史管理)—— 使用 URL 的 hash 来模拟一个完整的 URL，于是当 URL 改变时，页面不会重新加载。
+     history 模式（无锚点）（可能会导致404）——history.pushState API 来完成 URL 跳转而无须重新加载页面。
+  
+  导航守卫（全局导航钩子）：
+    用于权限或登陆等时管理路由
+    const router = new VueRouter({ ... })
+    router.beforeEach((to, from, next) => {
+      // ...
+    })
+    to:即将要进入的目标路由
+    from:当前导航正要离开的路由
+    next（必须被调用）:执行效果依赖 next 方法的调用参数。
+      next() 进行管道中的下一个钩子
+      next(false) 中断当前的导航
+      next('/') 跳转到一个不同的地址
+      next(error)
+    
+    beforeRouteUpdate (to, from, next) {
+      // 在当前路由改变，但是该组件被复用时调用
+      // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+      // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+      // 可以访问组件实例 `this`
+    },
+
+  路由跳转：
+    this.$router.push({path:''})
+    router.go(1) // 前进一个路由
+    router.go(-1) // 后退一个路由
+    router.go(3) // 前进3步记录
+
+    传参与接收参数：
+      传参: 
+      this.$router.push({
+          path:'/xxx',
+          query:{
+            id:id
+          }
+      })
+      接收参数:
+      this.$route.query.id
+
+      this.$router 和this.$route有何区别
+      1.$router为VueRouter'实例'，想要导航到不同URL，则使用$router.push方法
+      2.$route为当前router跳转'对象'，里面可以获取name、path、query、params等
+
+复用组件时，想对路由参数的变化作出响应的话， 可以watch (监测变化) $route 对象
+    const User = {
+        template: '...',
+        watch: {
+            '$route' (to, from) {
+            // 对路由变化作出响应...
+            }
+        }
+    }
+    或者使用 2.2 中引入的 beforeRouteUpdate 守卫：
+    const User = {
+        template: '...',
+        beforeRouteUpdate (to, from, next) {
+            // react to route changes...
+            // don't forget to call next()
+        }
+    }

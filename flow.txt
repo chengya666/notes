@@ -1,0 +1,21 @@
+js类型检查工具flow的基本使用
+
+1.安装
+    ...
+2.为代码添加Flow类型
+    添加类型的方式有两种：
+    1.注释型：这种方式不会对代码产生任何影响，JS代码可以正常运行，但是代码结构会因为注释内容的存在降低可读性。
+        // @flow
+        function test(a /*: number*/, b /*: number*/) /*: number*/{
+            return a + b;
+        }
+        // 声明test函数的a,b参数类型事number, 返回值也是number
+    2.代码型（推荐）：这种方式会改变JS代码结构，需要配合babel使用才可正常运行
+        // @flow
+        function test(a: number, b: number): number{
+            return a + b;
+        }
+        // 声明test函数的a,b参数类型事number, 返回值也是number
+
+3.// @flow 标记不能少 标记还可以书写为 /* @flow */
+

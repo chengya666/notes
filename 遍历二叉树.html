@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>对象深度克隆</title>
+</head>
+<body>
+  <script>
+    /**
+     *判断获取对象类型
+     */
+    function isObject(target){
+      return Object.prototype.toString.call(target).slice(8,-1)
+    }
+
+    function clone(target) {
+      let result
+      if (isObject(target) == 'Array') {
+        result = []
+      } else if (isObject(target) == 'Object') {
+        result = {}
+      } else {
+        return target
+      }
+      for(let key in target) {
+        let item = target[key]
+        if (isObject(item) == 'Object') {
+          result[key] = clone(item)
+        } else {
+          result[key] = item
+        }
+      }
+      return result
+    }
+    let obj={name:'kobe',age:'30',sex:{option:'男',option2:'女'}}
+    let obj2=clone(obj)
+    obj.sex.option2='不男不女'
+    console.log(obj,obj2)
+  </script>
+</body>
+</html>

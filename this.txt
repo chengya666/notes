@@ -1,0 +1,6 @@
+1.普通的script和函数中，this指window
+2.事件当中的this之被监听的对象
+3.对象当中的this与class当中的this，一个是指对象本身，一个是指调用者实例化对象
+4.call、bind、apply中的this指被混入的对象
+5.箭头函数函数中的this被重新指向外部环境中的this
+6.在jsAPI方法中，如果有回调函数，this一般指向window

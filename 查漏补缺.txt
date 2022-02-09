@@ -1,0 +1,89 @@
+1.变量提升（示例）
+  console.log(a);
+  var a = 1;
+  js引擎会解析为：
+  var a;
+  console.log(a); // undefined
+  a = 1;
+
+2.switch结构
+  多个if...else连在一起使用的时候，可以转为使用更方便的switch结构。
+  var x = 1;
+
+  switch (x) {
+    case 1:
+      console.log('x 等于1');
+    case 2:
+      console.log('x 等于2');
+    default:
+      console.log('x 等于其他值');
+  }
+
+3.typeof(检查数据类型)与instanceof(变量是否是某个对象的实例)
+  typeof '123' // "string"
+  typeof window // "object"
+  typeof {} // "object"
+  typeof [] // "object"
+  typeof function(){} // "function"
+  typeof能够检测出了null之外的原型类型（String、Number、Boolean、Undefined），对于对象类型能判断出function、其他的都为Object
+
+  var o = {};
+  var a = [];
+  o instanceof Array // false
+  a instanceof Array // true
+  instanceof 只能用来判断两个对象是否属于实例关系， 而不能判断一个对象实例具体属于哪种类型。
+
+4.日期
+  年：使用四位数年份，比如2000。如果写成两位数或个位数，则加上1900，即10代表1910年。如果是负数，表示公元前。
+  月：0表示一月，依次类推，11表示12月。
+  日：1到31。
+  小时：0到23。
+  分钟：0到59。
+  秒：0到59
+  毫秒：0到999。
+
+  注意，月份从0开始计算，但是，天数从1开始计算。另外，除了日期的默认值为1，小时、分钟、秒钟和毫秒的默认值都是0。
+  getTime()：返回实例距离1970年1月1日00:00:00的毫秒数，等同于valueOf方法。
+  getDate()：返回实例对象对应每个月的几号（从1开始）。
+  getDay()：返回星期几，星期日为0，星期一为1，以此类推。
+  getYear()：返回距离1900的年数。
+  getFullYear()：返回四位的年份。
+  getMonth()：返回月份（0表示1月，11表示12月）。
+  getHours()：返回小时（0-23）。
+  getMilliseconds()：返回毫秒（0-999）。
+  getMinutes()：返回分钟（0-59）。
+  getSeconds()：返回秒（0-59）。
+
+5.Math
+  // 绝对值
+  Math.abs(1) // 1
+  Math.abs(-1) // 1
+  // 下取整
+  Math.floor(3.2) // 3
+  Math.floor(-3.2) // -4
+  // 上取整
+  Math.ceil(3.2) // 4
+  Math.ceil(-3.2) // -3
+
+  // 随机数
+  Math.random()：返回0到1之间的一个伪随机数，可能等于0，但是一定小于1。
+  // 从数组中随机取元素
+  var arr = ['m','n','b','d']
+  arr[Math.floor(Math.random()*arr.length)]
+  // 随机数生成
+  Math.random() * (max - min) + min
+  // 随机整数生成
+  Math.floor(Math.random() * (max - min + 1)) + min
+
+6.防抖
+  function debounce(fn, delay){
+    var timer = null; // 声明计时器
+    return function() {
+      var context = this;
+      var args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        fn.apply(context, args);
+      }, delay);
+    };
+  }

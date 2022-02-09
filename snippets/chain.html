@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Method chaining</title>
+</head>
+<body>
+  <script>
+    const files = [ 'foo.txt ', '.bar', '   ', 'baz.foo' ];
+    const filePaths = files
+      .map(file => file.trim())
+      .filter(Boolean)
+      .map(fileName => `~/cool_app/${fileName}`);
+
+    // filePaths = [ '~/cool_app/foo.txt', '~/cool_app/.bar', '~/cool_app/baz.foo']
+  </script>
+</body>
+</html>

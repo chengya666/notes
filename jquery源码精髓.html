@@ -1,0 +1,48 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-01-15 11:43:32
+ * @LastEditTime: 2020-07-18 11:06:43
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \js总结2020.7.2\jquery源码精髓.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jquery</title>
+</head>
+<body>
+  <script>
+  // [  !!的用法  ]
+  var a
+  if(a!=null&&typeof(a)!=undefined&&a!=''){
+    // a不为空
+  }
+
+  // 下方可以代替以上代码
+  if(!!a){
+    // a不为空
+  }
+
+  // 技巧 text + ""  不论text传什么类型，都会最终转成字符串
+  trim: function (text) {
+    return text == null ?
+      "" :
+      (text + "").replace(rtrim, "");
+  }
+
+  // [ jquery给我们提供的方法放到了两个位置上 ]
+  // 1.原型上 jquery.prototype={get:...}
+    $().get() // 只有jquery的实例才可以调用
+    
+  // 2.对象上 jquery.ajax = ...
+    $.ajax() // 直接调取使用
+  </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,13 @@
+Performance 性能
+Fragment 分段、碎片
+logically 从逻辑上讲
+logic 逻辑
+whitelist 白名单
+
+单词区别：
+1.handle与process
+  handle处理（handleLoad、handleError、handleTimeout）
+  handler处理器、管理者
+  process强调过程、步骤、流程的方法名
+
+  

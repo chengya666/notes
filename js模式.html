@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>js单例模式</title>
+</head>
+<body>
+  <script>
+  // 基于单例设计模式
+  let shopModule = (function ($) { // 传入$保证jquery不被占用
+    // 共用变量都提前放在一起
+    let list = null,
+        data = null
+
+    function queryData () {
+
+    }
+
+    function bindHtml () {
+
+    }
+
+    function sortHandle () {
+
+    }
+
+    return {
+      init() { // 当前模块的入口
+        queryData()
+        bindHtml()
+        sortHandle()
+      }
+    }
+  })(jQuery);
+
+  // 如果js不在html里最底部放着须考虑最下面的方式
+  shopModule.init()
+
+  /**
+   * 工厂模式
+  */
+
+  /**
+   * 观察者模式
+   * （当对象间存在一对多的关系，使用观察者模式。比如：当一个对象被修改，会自动通知依赖它的对象。）
+  */
+
+  /**
+   * 发布订阅模式
+   * （）
+  */
+
+  // 当页面加载完js再执行js的方式
+
+  // 第一种:
+  window.onload = function () {
+    // ...
+  }
+
+  // 第二种jquery：（繁琐）
+  $(document).ready(function (){
+     // ...
+  })
+
+  // 第三种jquery：(建议使用)
+  $(function () {
+    // ...
+  })
+
+
+  </script>
+</body>
+</html>

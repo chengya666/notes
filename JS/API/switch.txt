@@ -1,0 +1,47 @@
+《switch基本使用：》
+  switch (expr) {
+    case 'Oranges':
+      console.log('Oranges are $0.59 a pound.');
+      break;
+    case 'Apples':
+      console.log('Apples are $0.32 a pound.');
+      break;
+    case 'Bananas':
+      console.log('Bananas are $0.48 a pound.');
+      break;
+    case 'Cherries':
+      console.log('Cherries are $3.00 a pound.');
+      break;
+    case 'Mangoes':
+    case 'Papayas':
+      console.log('Mangoes and papayas are $2.79 a pound.');
+      break;
+    default:
+      console.log('Sorry, we are out of ' + expr + '.');
+  }
+
+  注：
+  1.break可退出switch
+  2.default和case可以互换位置
+
+switch的块级作用域：
+  使用let或const可能会报错
+  解决办法：通过把 case 语句包装到括号里面，如下
+
+  const action = 'say_hello';
+  switch (action) {
+    case 'say_hello': { // added brackets
+      let message = 'hello';
+      console.log(message);
+      break;
+    } // added brackets
+    case 'say_hi': { // added brackets
+      let message = 'hi';
+      console.log(message);
+      break;
+    } // added brackets
+    default: { // added brackets
+      console.log('Empty action received.');
+      break;
+    } // added brackets
+  }

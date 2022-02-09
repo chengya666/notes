@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue</title>
+</head>
+<body>
+  <script>
+  /**
+  1、安装：npm install vue-i18n
+
+  2、引入与注册实例（在 main.js 中引入 vue-i18n）：
+    import VueI18n from 'vue-i18n'
+    Vue.use(VueI18n) // 通过插件的形式挂载
+    const i18n = new VueI18n({
+        locale: 'zh-CN',    // 语言标识
+        //this.$i18n.locale // 通过切换locale的值来实现语言切换
+        messages: {
+          'zh-CN': require('./common/lang/zh'),   // 中文语言包
+          'en-US': require('./common/lang/en')    // 英文语言包
+        }
+    })
+    
+    new Vue({
+      el: '#app',
+      i18n,  // 不要忘记
+      store,
+      router,
+      template: '<App/>',
+      components: { App }
+    })
+  
+  3、建公共语言文件夹
+    common文件夹 》 en.js与zh.js
+  
+  4、语言包
+    en.js：
+      export const m = { 
+        music: 'Music',//网易云音乐
+        hello：'{msg} world'
+      }
+
+    zh.js:
+      export const m = {
+        music: '网易云音乐',
+      }
+
+    5、通过点击事件修改locale的值来切换语言
+      changeLangEvent() {
+        this.$confirm('确定切换语言吗?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            if ( this.lang === 'zh-CN' ) {
+                this.lang = 'en-US';
+                this.$i18n.locale = this.lang;//关键语句
+            }else {
+                this.lang = 'zh-CN'
+                this.$i18n.locale = this.lang//关键语句
+            }
+          }).catch(() => {
+            this.$message({
+                type: 'info',
+            })          
+          })
+      }
+
+    6、数据渲染
+      简单使用：
+        <div>{{$t('m.music')}}</div>
+      
+      1.格式化：$t()
+        具名：
+          1.直接根据语言读取相对应的翻译：$t(键)
+            <div>{{$t('m.music')}}</div>
+          2.传入变量
+            $t('message.hello', { msg: 'hello' })
+        列表：
+          数组：
+            <p>{{ $t('message.hello', ['hello']) }}</p>
+          对象：
+            <p>{{ $t('message.hello', {'0': 'hello'}) }}</p>
+        自定义格式：
+          class CustomFormatter {
+            constructor (options) {
+              // ...
+            }
+            interpolate (message, values) {
+              // 在这里实现插值逻辑
+              // ...
+
+              // 返回插值数组
+              return ['resolved message string']
+            }
+          }
+
+          // 在VueI18n实例中注册 `formatter` 选项  formatter: new CustomFormatter() 
+      2.复数：具有管道 | 分隔符的语言环境，并在管道分隔符中定义复数。用$tc()读取
+          car: 'car | cars',
+          apple: 'no apples | one apple | {count} apples'
+          <p>{{ $tc('car', 1) }}</p>
+          <p>{{ $tc('car', 2) }}</p>
+
+          <p>{{ $tc('apple', 0) }}</p>
+          <p>{{ $tc('apple', 1) }}</p>
+          <p>{{ $tc('apple', 10, { count: 10 }) }}</p>
+
+      3.日期时间本地化：$d()
+          const dateTimeFormats = {
+          'en': {
+            short: {
+              year: 'numeric', month: 'short', day: 'numeric'
+            }
+          },
+          单独放入js文件里需export default dateTimeFormats
+          然后在main.js里 import dateTimeFormats from ''
+          将dateTimeFormats放入VueI18构造函数配置项中
+
+          <p>{{ $d(new Date(), 'short') }}</p>
+      4.数字本地化：$n()
+          与日期时间用法类似，numberFormats需注册VueI18构造函数配置项中
+          const numberFormats = {
+            'en-US': {
+              currency: {
+                style: 'currency', currency: 'USD'
+              }
+            },
+          }
+          <p>{{ $n(100, 'currency') }}</p>
+          <p>{{ $n(100, 'currency', 'ja-JP') }}</p>
+          没有指定locale时，默认指英文en  
+
+      5.语言环境变更：
+          1.更改 VueI18n 实例的 locale 属性的值
+          2.每个组件内通过$i18n.locale也可更改语言环境
+
+      6.回退本地化
+          当一个语言中健不存在时，使用fallbackLocale: 'en'规定的语言进行本地化
+
+    7.数字格式化
+      格式化金额的方法： Intl.NumberFormat()
+      locales：（可选）
+      style：指定数字的格式样式
+              decimal	  纯数字格式 （默认值）
+              currency	货币格式
+              percen    百分比格式
+      currency：在货币格式化中使用的货币符号
+              USD	美元
+              EUR	欧元
+              CNY 人民币
+
+    8.在反引号中使用：
+     ${window.app.$t()}
+
+    1.export
+      //a.js
+      export const str = "blablabla~";
+      export function log(sth) { 
+        return sth;
+      }
+      对应的导入方式：
+
+      //b.js
+      import { str, log } from 'a'; //也可以分开写两次，导入的时候带花括号
+
+    2.export default
+      //a.js
+      const str = "blablabla~";
+      export default str;
+      对应的导入方式：
+
+      //b.js
+      import str from 'a'; //导入的时候没有花括号
+
+
+
+  
+  */
+  </script>
+</body>
+</html>

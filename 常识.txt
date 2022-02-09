@@ -1,0 +1,24 @@
+JD：Job Description  HR中的JD是工作说明或职位详情。
+
+jr：Job Requirement职位要求。
+
+ceo: chief executive officer 首席执行官
+ 
+coo: chief operations officer 首席运营官
+ 
+cfo: chief financial officer 首席财务官
+ 
+cio: chief information officer 首席信息官
+
+FE　　指Front-End Development，即：前端开发
+
+RD　　指Research and Development，即：研发
+
+PD　　指Product Designer，即：产品设计人员
+
+PM　　指Product Manager，即：产品经理
+
+TL    Team Leader，即：团队领导
+
+网络用语：
+  Toyota  丰田

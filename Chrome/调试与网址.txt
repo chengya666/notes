@@ -1,0 +1,20 @@
+
+
+网址：
+  // 可查看Google浏览器的版本以及安装信息、所在window系统信息
+  chrome://version/
+
+  // 调试网址
+  chrome://inspect/#devices
+
+  // 显示Google中所有以chrome://为协议的网址
+  chrome://about/
+
+
+
+调试：
+  （1）自动捕获异常断点
+    在浏览器控制台断点区域里‘勾选’Pause on caught exceptions，然后才操作对应的页面进行捕获异常
+
+  （2）鼠标悬停某个元素时展开或收起 断点
+    鼠标放在悬停元素上，调出命令：Ctrl + Shift + P

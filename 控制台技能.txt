@@ -1,0 +1,25 @@
+// 打印出红色汉字
+console.log("%c百度2021校园招聘简历投递：https://talent.baidu.com/external/baidu/campus.html","color:red")
+
+// 打印出图片
+console.log('%c ', 'padding:133px 184px; font-size: 0; background:url("https://picsum.photos/id/1/368/268"); no-repeat;')
+
+console.log(
+        `%c vue-devtools %c Detected Vue v2.5.17 %c`,
+        'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+        'background:#41b883 ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+        'background:transparent'
+      )
+
+%c为打印内容定义样式
+
+// 打印出虚线文字
+var res = `
+// - - -
+//  - -
+//   -
+`
+console.log(res)
+
+解决无法复制网页中的文本：1.点击F12键 2.点击小齿轮 下拉到最底部 勾选debugger所有选项
+

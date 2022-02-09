@@ -1,0 +1,52 @@
+
+注：
+  const route = useRoute() 
+  并且isReactive(route) // true
+  route是reactive对象，所以监听时需要放入回调函数里
+
+<router-link v-slot="{ href, route, navigate, isActive, isExactActive }">:
+      custom默认值为false
+      1.加上custom，为自定义，不会被a标签包裹
+      <router-link to="/list" custom>显示列表</router-link>
+      渲染为：
+        显示列表
+      
+      2.不加custom，默认会被a标签包裹
+      <router-link to="/list">显示列表</router-link> 
+      渲染为：
+        <a aria-current="page" href="/list" class="router-link-active router-link-exact-active">显示列表</a>
+
+<router-view v-slot="{ Component, route }">：
+
+
+源码中的单词术语含义：
+1.RouteLocationRaw
+  用户级的路由地址， 可以传递给 router.push()，redirect，并在导航守卫中返回。
+
+  原始位置可以是一个 字符串，比如 /users/posva#bio，也可以是一个对象：
+
+2.RouteLocation 
+  可以包含重定向记录的解析的 RouteLocationRaw。
+  除此之外，它还具有与 RouteLocationNormalized 相同的属性。
+
+3.RouteRecordRaw 
+  当用户通过 routes option 或者 router.addRoutes() 来添加路由时，可以得到路由记录。 有三种不同的路由记录:
+    单一视图记录：有一个 component 配置
+    多视图记录 (命名视图) ：有一个 components 配置
+    重定向记录：没有 component 或 components 配置，因为重定向记录永远不会到达。
+
+3.RouteLocationNormalized
+  标准化的路由地址。没有任何重定向记录。在导航守卫中，to 和 from 总是属于这种类型。
+
+4.isReady()
+  所有导航都是异步的，如果使用transition，需要在安装应用程序之前等待路由器准备就绪
+  app.use(router)
+  // router.onReady() 已经替换为 router.isReady()
+  // 不带任何参数并返回 Promise
+  router.isReady().then(() => app.mount('#app'))
+
+
+原理利用HTML5中的API：
+  1.History.pushState()
+  2.History.replaceState()
+    

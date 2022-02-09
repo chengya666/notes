@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typescript中declare语法</title>
+</head>
+<body>
+  <script>
+    /*
+    // 全局变量
+    declare var 声明全局变量
+    declare function 声明全局方法
+    declare class 声明全局类
+    declare enum 声明全局枚举类型
+    declare namespace 声明全局对象（含有子属性）
+    interface 和 type 声明全局类型
+
+    */
+
+    /*
+    // 全局变量
+    declare var/const/let
+
+    // 函数重载 、全局函数
+    declare function
+
+    // 如果模块有方法
+    export function
+
+    declare class
+
+    // TypeScript 1.5里术语名已经发生了变化。 “内部模块”现在称做“命名空间”。
+    //  “外部模块”现在则简称为“模块”，这是为了与 ECMAScript 2015里的术语保持一致，
+    //  (也就是说 module X { 相当于现在推荐的写法 namespace X {)。
+    declare namespace
+
+    declare module：扩展模块的接口类型
+    
+    /// 三斜线指令必须放在文件的最顶端
+      ///<reference types=“UMDModuleName/globalName” />
+      ts 早期模块化的标签, 用来导入依赖, ES6广泛使用后, 在编写TS文件中不推荐使用, 除了以下的场景使用///, 其他场景使用 import 代替
+      在声明文件中, 依赖全局库或被全局库依赖, 具体:
+
+      库依赖全局库, 因为全局库不能使用import导入
+      全局库依赖于某个 UMD 模块，因为全局库中不能出现import/export, 出现则为npm/UMD
+
+      注意: 三斜线指令必须放在文件的最顶端，三斜线指令的前面只允许出现单行或多行注释。
+      模块或一个 UMD 库依赖于一个 UMD 库，使用 import * as 语句引入模块
+
+    
+    注: interface 前是不需要 declare 的
+
+
+    */
+  </script>
+</body>
+</html>

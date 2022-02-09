@@ -1,0 +1,257 @@
+1. in操作符
+
+  var mycar = {make: "Honda", model: "Accord", year: 1998};
+  if ( "make" in mycar ){ // 注意，属性名必须是字符串形式，因为make不是一个变量
+    document.write('true');
+  }
+  else{
+    document.write('false');  // 显示true
+  }
+
+
+2. delete操作符可以删除属性，配合in使用
+
+  var mycar = {make: "Honda", model: "Accord", year: 1998};
+  delete mycar.make;
+  "make" in mycar;  // returns false
+
+
+3. 注意（vue）
+
+  v-if="!isSeas || !isCluepool" 错误写法
+  v-if="!(isSeas || isCluepool)"正确写法
+
+
+4. 强调
+
+  一个函数如果只定义了，没有调用，函数就不会执行
+  函数调用完后就会释放（连同自身局部变量一同被释放，而window的变量只要浏览器不关，就不会被释放），而闭包不会
+  var a = 1
+  function f() {
+    console.log(a++)
+  }
+  f() // 1
+  f() // 2
+
+
+5. 闭包形成的原因：
+  外层函数的作用域对象无法释放（window中的变量不会被释放，所以始终被引用着）
+  从而闭包中的变量也不会被释放
+
+  for循环中的闭包:
+    假设有8个按钮
+    function f(i) {
+        return function() {
+            alert(i) // 没点击就不会执行该行代码
+        }
+      }
+      var btns = document.getElementsByTagName('button');
+      for(var i = 0; i < btns.length; i++){ // 没点击时for循环早已经执行了
+        btns[i].onclick = f(i) // 等号右边需点击并调用并传参否则不执行
+      } // 在没有点击按钮时i早已经变成8了
+
+  注：闭包中for循环var i的变量实际是上一级的变量，可访问到i，用let则不会访问到，只在该代码块内有效
+
+6.call、apply、bind
+  相同：如果函数中的this不是想要的，都可以替换
+  不同：
+  call/apply：强行‘调用’一个函数，并临时替换函数中的this为指定对象
+    call:要求传入函数的参数必须单独传入
+    apply:要求传入函数的参数必须放在数组中整体传入《注：调用函数时传入数组，原函数参数位置接收时会被打散数组类似于es6中的...[1,2,3]》
+     apply可先打散数组参数为单个元素，再传参
+  bind:基于一个现有函数，创建一个一模一样的新函数，并永久绑定this为指定对象
+  总结：如果是临时调用一个函数，用call/apply
+        如果创建一个新函数，永久绑定this时
+          所有回调函数中的this，要想替换都用bind
+          因为回调函数不是立刻执行，且不止执行一次！
+
+
+  判断是否是数组：
+    if (!Array.isArray) {
+      Array.isArray = function(arg) {
+        return Object.prototype.toString.call(arg) === '[object Array]'; // 使用Object.prototype上的原生toString()方法判断数据类型,而其他类型没有toString方法
+      };
+    }
+
+
+  name="window";
+  var a={
+    name:"aa",
+    fn:function(...a){
+      var sum=0;
+      a.map(v=>sum+=v);//累加
+      console.log("name = "+this.name);
+      console.log("sum = "+sum);
+    }
+  }
+  
+  var b={name:'bb'};
+  /* name = bb
+    sum = 6*/
+  a.fn.call(b,1,2,3);
+  a.fn.apply(b,[1,2,3]);
+  a.fn.bind(b,1,2,3)();
+  
+  
+  /* name = window
+    sum = 6*/
+  a.fn.call(null,1,2,3);
+  a.fn.apply(undefined,[1,2,3]);
+  a.fn.bind(this,1,2,3)();
+
+7. 类数组转数组
+  Array.prototype.slice.call(arguments,n) // 截取n个
+
+8. 深拷贝
+  （1）JSON.parse(JSON.stringify(XXXX))
+  （2）递归
+    
+    var array = [
+      { number: 1 },
+      { number: 2 },
+      { number: 3 }
+    ];
+    function copy (obj) {
+            var newobj = obj.constructor === Array ? [] : {};
+            if(typeof obj !== 'object'){
+                return;
+            }
+            for(var i in obj){
+              newobj[i] = typeof obj[i] === 'object' ?
+              copy(obj[i]) : obj[i];
+            }
+            return newobj
+    }
+    var copyArray = copy(array)
+    copyArray[0].number = 100;
+    console.log(array); //  [{number: 1}, { number: 2 }, { number: 3 }]
+    console.log(copyArray); // [{number: 100}, { number: 2 }, { number: 3 }]
+
+9.判断是否是纯正的数组/对象/字符串/函数
+  Object.prototype.toString.call([]) // "[object Array]"
+  Object.prototype.toString.call(类数组) // "[object NodeList]"
+  Object.prototype.toString.call('') // "[object String]"
+  Object.prototype.toString.call({}) // "[object Object]"
+  Object.prototype.toString.call(function(){}) // "[object Function]"
+
+6. 继承
+  function Animal(){
+　　　this.species = "动物";
+　}
+  function Cat(name,color){
+　　　this.name = name;
+　　　this.color = color;
+　}
+
+  (1)构造函数继承
+  function Sub(value) {
+    Super.call(this);
+    this.prop = value;
+  }
+  Sub.prototype = Object.create(Super.prototype);
+  Sub.prototype.constructor = Sub;
+  Sub.prototype.method = '...';
+
+  注：构造函数创建对象如：console.log(new Cat())  // Cat {}
+  (2)多重继承
+    function M1() {
+      this.hello = 'hello';
+    }
+
+    function M2() {
+      this.world = 'world';
+    }
+
+    function S() {
+      M1.call(this);
+      M2.call(this);
+    }
+
+    // 继承 M1
+    S.prototype = Object.create(M1.prototype); // 创建对象
+    // 继承链上加入 M2
+    Object.assign(S.prototype, M2.prototype); // 把m2原型对象拼到目标s原型对象上
+
+    // 指定构造函数
+    S.prototype.constructor = S;
+
+    var s = new S();
+    s.hello // 'hello：'
+    s.world // 'world'
+  
+  7.数组map方法（不修改原数组，需用变量接住）
+    语法：let newAarray = arr.map(function callback(currentValue, index, array) { // Return element for newArray }
+
+    forEach修改原数组，可以不用变量接住
+
+  8.typeof：是一个运算符（2种使用方式）
+    1.typeof (表达式)
+    2.typeof 变量名
+    值包括：
+      'undefined' -- 未定义的变量或值
+      'boolean' -- 布尔类型的变量或值
+      'string' -- 字符串类型的变量或值
+      'number' -- 数字类型的变量或值
+      'object' -- 对象类型的变量或值，或者null
+      'function' -- 函数类型的变量或值
+  
+  9.instanceof:用来判断对象
+    o1 instanceof o2 (o1是否是o2的实例) o2必须是为对象
+    返回值为布尔值
+
+  10.toString()：返回一个表示该对象的字符串。
+    obj.toString()
+    var o = new Object();
+    o.toString(); // returns [object Object]
+
+    如果此方法在自定义对象中未被覆盖，toString() 返回 "[object type]"，其中 type 是对象的类型。
+
+    如果被覆盖：
+      为了每个对象都能通过 Object.prototype.toString() 来检测，
+      需要以：
+        Object.prototype.toString.call(值)
+  
+  11.创建对象的方式：
+    1.字面量：
+      var person ={
+         name: "lisi",
+         age: 21,
+         family: ["lida","lier","wangwu"],
+         say: function(){
+             alert(this.name);
+         }
+     };
+    2.new
+      1 var person = new Object();
+        person.name = "lisi";
+        person.say = function(){
+            alert(this.name);
+        }
+    3.构造函数
+      function Person(name,age,family) {
+          this.name = name;
+          this.age = age;
+          this.family = family;
+          this.say = function(){
+              alert(this.name);
+          }
+      }
+      var person1 = new Person("lisi",21,["lida","lier","wangwu"]);
+  
+  12.数据类型转换
+    1.字符串与算术运算符
+      1.字符串连接符+：只要加号两边有一个是字符串
+      2.算术运算符+：两边都是数字
+
+  13.
+    option && myChart.setOption(option);
+  
+  14.获取数组最后一项
+    （1）this.array[this.array.length - 1] // 注：会改变原数组
+    （1）[last] = this.array.slice(-1) // -1时取得是最后一项， -2时取得是最后两项，....
+    （1）this.array.pop()
+
+  15.注：一行开头是`括号`或者`方括号`的时候加上分号就可以了
+    ;()()
+    ;[]
+

@@ -1,0 +1,34 @@
+// 插件代码段
+1.vetur
+2.vue vscode snippets
+3.别名路径跳转
+4.Live Server
+5.Bookmarks（书签标记可以具体到某一行或某些行）
+  Ctrl + alt + K （首次执行是打标记，再次执行取消标记）
+6.GitLens（每一行代码旁边都有提交日志信息，可以看到是谁写的）
+7.Favorites（收藏文件或文件夹）
+8.volar （西班牙语，飞的意思）适用于Vue3中使用Typescript或使用<script setup>语法提示
+9.Live-Preview
+10.vite
+11.Quokka.js或Wallaby.js 可运行JavaScript与Typescript
+12.Code Spell Checker 代码拼写检查
+
+// 以单词为单位进行跳转
+ctrl + 方向键
+// 跳转到函数定义处
+F12或ctrl+点击函数名
+
+// 打开最近的文件
+ctrl + p 
+
+// 查找文件中变量
+输入@变量名、函数名、类名
+
+// 快速进入vscode中settings文件里
+点击右上角按钮Open Settings
+
+注释
+/////////////////////////////
+/// ECMAScript APIs
+/////////////////////////////
+

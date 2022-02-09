@@ -1,0 +1,11 @@
+      
+      Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。
+定义： Object.create(proto，[propertiesObject])
+      proto //新创建对象的原型对象。
+      propertiesObject // 可选，不传为undefined
+
+      // 纯净的空对象，没有任何属性和原型方法
+      Object.create(null); // {}
+
+      // 普通的对象
+      let obj = {} // 有原型对象__proto__及其方法

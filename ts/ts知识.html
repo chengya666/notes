@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>typeScript</title>
+</head>
+<body>
+  <script>
+  /**
+    // 安装
+    npm i -g typescript
+    // 检测是否安装
+    tsc -V
+    // 或 npm install -g ts-node(typescript运行时)
+    // 进入目标文件夹，创建tsconfig.json文件
+    tsc -init
+    // 修改tsconfig.json文件配置
+    {
+      "compilerOptions":{
+        "target":"es6",
+        "noImplicitAny":false,
+        "module":"amd",
+        "removeComments":false,
+        // 
+        "sourceMap":false,
+        // 编译后的js文件路径
+        "outDir":"./"
+      }
+    }
+    设置vscode监视任务：终端-运行任务-tsc监视
+
+    var isFlag:boolean=false; // 这个 : 号代表应该是代表继承的意思
+
+  
+  javascript是一种弱类型语言：对类型要求比较宽容
+  基本类型使用：
+    let 变量名：变量类型 = 值
+    布尔值：var isFlag:boolean=false;
+    数字：var orderNumber:number=100;
+    字符串：var userName:string="龙梅子";
+    数组：1.let 数组名：类型[] = [值1，值2]
+            let list:number[] = [1, 2, 3];
+         2.let 数组名：Array<类型> = [值1，值2]
+            let list1:Array<number> = [1, 2, 3];//泛型数组
+    undefined： let undef：undefined = undefined
+    null： let nul：null = null
+    元组：（规定了元素数量和每个元素类型的数组，而每个元素的类型可以不相同）
+          let 元组名：[类型1，类型2，类型3] = [值1，值2，值3]
+          let tup1:[string，number，boolean] = ['gun'，10，true]
+    枚举：（定义一些名字有意义的常量）
+          语法：
+            enmu 枚举名 {
+              枚举项1：枚举值1，
+              枚举项2：枚举值2，
+              。。。
+            }
+            枚举项一般用英文和数字，枚举值用整型数字
+          使用默认枚举值：
+            enmu 枚举名 {
+              枚举项1
+              枚举项2
+              。。。
+            }
+            枚举值将自动生成从0开始的数值
+          1.数字枚举
+          enum Direction {
+                Up,
+                Down,
+                Left,
+                Right,
+            }
+            Up的值为 0，后面的值依次递增
+            注：没有给出确定值的，在TS中都是不允许的，比如以上 Up = hello()
+            enum Color {Red, Green, Blue};//enum 关键字 枚举对象{声明变量}
+            var c1: Color = Color.Green;//从枚举里面拿出绿色出来赋给一个叫 c 的变量
+          2.字符串枚举
+            enum Direction {
+                Up = "UP",
+                Down = "DOWN",
+                Left = "LEFT",
+                Right = "RIGHT",
+            }
+            由于字符串枚举没有自增长的行为,字符串枚举成员都必须手动初始化，可读性强
+          3.反向映射
+            反向映射是数字枚举的一个技巧
+            在字符串中没有反向映射
+    泛型：（因为它可以适用于多个类型，不会丢失信息，而any会丢失信息）
+          function hello<T>(arg:T): T { // T包含多个类型参数，它们只需要用逗号分隔
+            return arg;
+          }
+
+          相当于一个公共的函数，谁都可以使用，使用者调用该函数并传入类型
+          不同的使用者可传入不同的类型参数
+
+          T代表用户即将传入的类型，最后还是用T作为返回值的类型，从而达到了返回值和参数类型相同的目的，保持住了函数表达的准确性。
+
+          使用泛型：（2种）
+            1.尖括号
+              let output = hello<string>("hello TypeScript");
+            2.使用类型推断
+              let output = hello("hello TypeScript");
+
+    Any：（任意类型，一般在获取dom时使用）
+          var notSure: any = 4;//notSure 这个是不确定的值，默认先给一个数字 4
+          notSure = "this string";//改变这个值为 this string
+          notSure = false; //最终确定的值是一个 boolean 值.
+          //------------------
+          var list2:any[] = [1, true, "free"];
+          list2[1] = 100;
+    void:（不是任意类型，一般用在无返回值的函数）
+          function setTableRowHtml1():void{
+            alert(userName);
+          }
+
+    never：（不存在的值得类型，常用作抛出异常、根本就不会有返回值的函数表达式或箭头函数表达式的返回值类型、无限循环的 函数返回类型）
+          补充：never类型是ts中的底部类型，所有类型都是never类型的父类
+          所以never类型值可以赋给任意类型的变量
+    
+    symbol:(ES6中新增，不能new，唯一的，保证每个属性的名字都是独一无二，防止属性名的冲突)
+
+    
+    类型断言：（如果变量的声明和初始化是在同一行，可以省略掉变量类型的声明）（2种）
+          let 变量名 = 值
+                    ↓
+          let 变量名：变量类型 = 值
+
+          let age = 18 // 会推断出是number类型
+          尖括号：
+          let oneString: any = 'this is a string'
+          let stringLength: number = (<string>oneString).length
+
+          关键字as：
+          let oneString: any = 'this is a string'
+          let stringLength: number = (stringLength as string).length;
+
+          两种方式是等效的
+
+    双重断言：xx as unknown as kk
+
+    联合类型：（取值可以为多种类型中的一种）
+            let 变量名：变量类型1|变量类型2 = 值
+
+    接口：（有别于服务端接口，对值所具有的结构进行类型检查, 检查那些必需的属性是否存在，并且其类型是否匹配。）
+        // 可选属性 (可选属性名字定义的后面加一个?符号)
+        interface SquareConfig {
+          label: string; // 必须
+          color?: string; // 可选
+          width?: number; // 可选
+        }
+
+    注：类型注解（人为为一个变量指定类型） 如：const a: number = 123;
+
+    注：类型推断（TypeScript 可以通过变量值倒推变量类型，函数的参数无法推断）与类型断言（TypeScript 允许你覆盖它的推断，以你想要的方式分析它并手动的指定一个值的类型）
+        语法： 1.值 as 类型  或 2. <类型>值
+        类型断言例子：
+          const foo = {} as Foo;
+          foo.bar = 123;
+          foo.bas = 'hello';
+
+          早期类型断言语法
+          let foo: any;
+          let bar = <string>foo;  // 现在 bar 的类型是 'string'
+        
+        为了一致性，建议使用 as foo 的语法来为类型断言
+
+    注：联合类型（多个类型之一，用单竖线 | 表示），交叉类型（多个类型的的并集，用 & 表示）
+
+    注：起别名不会新建一个类型 - 它创建了一个新 名字来引用那个类型。 给原始类型起别名通常没什么用，尽管可以做为文档的一种形式使用。
+        同接口一样，类型别名也可以是泛型 - 我们可以添加类型参数并且在别名声明的右侧传入
+        type Container<T> = { value: T };
+    
+    keyof：(TS 2.1v)
+          interface Itest{
+            webName:string;
+            age:number;
+            address:string
+          }
+          type ant=keyof Itest; // 'webName' | 'age' | 'address'
+          function getProperty<T, K extends keyof T>(obj: T, key: K) {
+              return obj[key];  // 推断类型是T[K]
+          }
+    
+    unknown: (TS 3.0v)
+           对照于any，unknown是类型安全的。 任何值都可以赋给unknown，
+           但是当没有类型断言或基于控制流的类型细化时unknown不可以赋值给其它类型，除了它自己和any外(unknown可以赋值给它自己和any)。 
+           同样地，在unknown没有被断言或细化到一个确切类型之前，是不允许在其上进行任何操作的。
+
+          1.使用类型断言缩小未知范围.
+          2.使用类型收缩
+    
+    infer: (TS 2.8v) 推断 详细解读【https://juejin.cn/post/6999441997236797470】
+          有条件类型中的类型推断(在有条件类型的extends子语句中,允许出现infer声明)
+
+          type ParamType<T> = T extends (param: infer P) => any ? P : T;
+          整句表示为：如果 T 能赋值给 (param: infer P) => any，则结果是 (param: infer P) => any 类型中的参数 P，否则返回为 T。
+          interface User {
+            name: string;
+            age: number;
+          }
+
+          type Func = (user: User) => void
+          type Param = ParamType<Func>;   // Param = User
+          type AA = ParamType<string>;    // string
+
+    const断言: (TS 3.4v)
+          // Type '"hello"'
+          let x = "hello" as const;
+
+          // Type 'readonly [10, 20]'
+          let y = [10, 20] as const;
+
+          // Type '{ readonly text: "hello" }'
+          let z = { text: "hello" } as const;
+
+
+          // Type '"hello"'
+          let x = <const>"hello";
+
+          // Type 'readonly [10, 20]'
+          let y = <const>[10, 20];
+
+          // Type '{ readonly text: "hello" }'
+          let z = <const>{ text: "hello" };
+    
+    ！（非空断言操作符）：(TS 2.0v)
+          const c: number = a!; // OK
+          用于断言操作对象是非null和非undefined类型的。
+    
+    导入与导出
+          (TS 3.8v) 专门针对TS类型的导入
+          import type { xx } from './xx'
+          export type xxx
+
+    接口与类型别名的区别
+          相同点: 接⼝和类型别名都可以⽤来描述对象的形状或函数签名且两者都可以被扩展；
+          接口：(只适用于对象的形状或函数签名)
+            interface Point{
+              x: number;
+              y: number;
+            }
+
+            interface SetPoint {
+              (x:number; y:number;): void;
+            }
+            
+            注：1.接口可以用extends扩展类型别名或接口
+                2.可重复定义相同名字的接口，最后会合并在一起
+                3.同名的 interface 自动聚合，也可以跟同名的 class 自动聚合
+                  只能表示 object、class、function 类型
+
+          别名：(适用比较广泛)
+            type Point = {
+              x: number;
+              y: number;
+            }
+
+            type SetPoint = (x:number; y:number;) => void
+
+            类型别名可用&扩展类型别名或接口
+
+          不同点：与接⼝类型不⼀样，类型别名可以⽤于⼀些其他类型，⽐如原始类型、联合类型和元组
+
+            不仅仅能够表示 object、class、function
+            不能重名（自然不存在同名聚合了），扩展已有的 type 需要创建新 type
+            支持复杂的类型操作
+    注：接口与类型别名 的名称都要首字母大写
+        type Axxx = ...
+        interface Axxx = {
+          ....
+        }
+    注：类型别名
+        // 单行
+        type name = string | number
+        // 类型别名换行
+        type name = 
+            | string
+            | number
+        
+        // 也可使用字符串字面量类型（类似枚举类型的字符串）
+        type name = "small" | "medium" | "large"
+        // 也可用于区分函数重载
+        function createElement(tagName: "img"): HTMLImageElement;
+        function createElement(tagName: "input"): HTMLInputElement;
+
+    枚举enum
+          常量枚举（编译时不会生成任何js代码，也就是在编译时会被删除）：
+          const enum xx {....}
+
+    字面量：（字面量的意思就是直接声明, 而非new关键词实例化出来的数据:）
+          // 字面量
+          const n:number = 123;
+          const s:string = '456';
+          const o:object = {a:1,b:'2'};
+          
+          // 非字面量
+          const n:Number = new Number(123);
+          const s:String = new String('456');
+          const o:Object = new Object({a:1,b:'2'});
+
+
+    泛型参数默认值
+          type Dog<T = any> = { name: string, type: T }
+          const dog: Dog = { name: 'ww', type: 'hsq' }
+          dog.type = 123;    // 不过这样type类型就是any了，无法自动推导出来，失去了泛型的意义
+
+          泛型默认值的语法格式简单总结如下：泛型名 = 默认类型
+          
+    // 构造函数类型字⾯量
+        new (x: number, y: number) => Point
+        等价于以下对象类型字⾯量：
+        {
+          new (x: number, y: number): Point; 
+        }
+
+        interface Point {
+          new (x: number, y: number): Point; 
+        }
+
+        
+    // instanceof类型保护是通过构造函数来细化类型的一种方式。
+
+  */
+
+
+  /*
+  is主要用于解决多次断言的问题，适用于大部分在两个范围内的情况或者是分支里
+  一般用于公共接口如：
+    export function isTemplateNode(
+      node: RootNode | TemplateChildNode
+    ): node is TemplateNode {
+      return (
+        node.type === NodeTypes.ELEMENT && node.tagType === ElementTypes.TEMPLATE
+      )
+    }
+
+
+    function isString(test: any): test is string{
+      return typeof test === "string";
+  }
+  */
+
+  /*
+  // unknown与any的区别
+  let fool:unknown = 'fool'
+  let bar:any = 'bar'
+
+  共同点：所有值均可以赋值给类型为unknown和any的变量
+  不同点：
+        1.unknown类型的变量不可以赋值给其他类型的变量，any类型的变量可以赋值给其他类型的变量
+        2.any是任意类型的父类型，同时也任意类型的子类型
+        3.unknown是任意类型的父类型，但仅此而已。
+  
+  */
+
+  /**
+  常用内置工具库-中文含义：
+    Pick: 选择，挑选
+        语法： Pick<T, U>
+        在T中挑选一些属性组成新的类型
+
+        interface Todo {
+          title: string;
+          description: string;
+          completed: boolean;
+        }
+        type TodoPreview = Pick<Todo, "title" | "completed">;
+        const todo: TodoPreview = {
+          title: "Clean room",
+          completed: false
+        };
+
+    Record: 记录、记载
+      Record<K extends keyof any, T> 
+      将 K 中`所有`的属性的值转化为 T 类型。
+
+      interface PageInfo {
+        title: string; 
+      }
+      type Page = "home" | "about" | "contact";
+      const x: Record<Page, PageInfo> = {
+        about: { title: "about" },
+        contact: { title: "contact" },
+        home: { title: "home" }
+      };
+
+    Partial：可选的
+      Partial<T> 
+      将某个类型⾥的属性全部变为可选项 ? 。
+    Required：必须的
+      Required<T> 
+      将某个类型⾥的属性全部变为必须项 。
+
+    Exclude：移除，不包括
+      Exclude<T, U>
+      从 T 中排除掉所有包含的 U 属性。
+
+    ReturnType：返回类型
+    Extract：提炼，抽取，
+      Extract<T, U> 
+      正好和上面的Exclude相反。而是从 T 中提取出所有包含的 U 属性值。
+
+    Omit：忽略，
+      Omit<T, K>
+      用来忽略 T 中的 K 属性
+      
+    NonNullable：不可为空，
+      NonNullable<T>
+      去除 T 中包含的null或者undefined。
+
+    Parameters： 参数，
+
+
+  */
+
+  /*
+  `可索引类型`(也可适用于增加额外属性)：通过通过索引类型得到返回值类型
+        包括数字索引和字符串索引两种
+        // 示例
+        // 索引为数字，值为字符串
+        interface A {
+          [index: number]: string
+        }
+        let arr: A = ['f','g']
+
+        // 索引为数字，值为数字
+        interface B {
+            [index: number]: number
+        }
+        let arr1: B = [1,2]
+
+        // 索引为字符串，值为字符串
+        interface B {
+            [index: string]: string
+        }
+        let arr1: B = {name: '123'}
+
+
+  `类类型-实现接口 implements`
+        interface ClockInterface {
+            currentTime: Date;
+        }
+
+        class Clock implements ClockInterface {
+            currentTime: Date;
+            constructor(h: number, m: number) { }
+        }
+
+
+  */
+
+  /*
+  
+  注：`extends`
+      // 示例
+        type result4<T> = T extends { a: true } ? true : false // true
+        let t1: result4<{a:true}> = true
+
+        type Demo<T, U> = T extends U ? never : T
+        let t2:Demo<'a' | 'b' | 'c', 'a'> = 'b'
+      
+      都有一个共同点（右侧B约束着左侧A）：
+          形如： A extends B
+          A中必须包含着B（或者联合类型中的某一个条件）的条件
+  
+  */
+
+  /*
+  注：
+    A<T> 使用A是必须传入T
+    A<T = any> 使用A时T可传可不传
+
+    // 事件处理器加类型
+    const handleChange = (evt: Event) => {
+      console.log((evt.target as HTMLInputElement).value)
+    }
+
+  */
+
+  /*
+  注：也就是说在`vite.config.ts`和`tsconfig.json`中都要分别配置@的相关配置，否则使用了@会报错
+
+    vite.config.ts：
+      alias: {
+        '@': path.resolve(__dirname, './src')
+        
+      }
+
+    tsconfig.json：
+      "baseUrl": "./",
+      "paths": {
+        "@/*": [
+          "src/*"
+        ]
+      },
+  
+  */
+
+
+
+  </script>
+</body>
+</html>

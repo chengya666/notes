@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Replacing JavaScript switch statement with object literals</title>
+</head>
+<body>
+  <script>
+    const switchFn = (lookupObject, defaultCase = '_default') => // switchFn其实就是一个闭包
+      expression => {
+        console.log(lookupObject,defaultCase,'vvvvv') // 首次执行会缓存这两个变量
+        (lookupObject[expression] || lookupObject[defaultCase])();
+      }
+
+    const knownFruit = () => console.log('Known fruit');
+    const unknownFruit = () => console.log('Unknown fruit');
+
+    const logFruit = {
+      'apples': knownFruit,
+      'oranges': knownFruit,
+      'default': unknownFruit
+    };
+
+    const fruitSwitch = switchFn(logFruit, 'default');
+    fruitSwitch('apples'); // Logs: 'Known fruit'
+    fruitSwitch('pineapples'); // Logs: 'Unknown fruit'
+  </script>           
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-01-20 09:38:33
+ * @LastEditTime: 2020-07-18 09:26:58
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \js总结2020.7.2\js常用算法.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>算法</title>
+</head>
+<body>
+  <script>
+  // 数组去重
+  var array = ['shi','bu','shi','ha']
+  function repeat(target) {
+    var hash = {},result = []
+    for(var key in target) {
+      if (!(target[key] in hash)) { // 利用in操作符判断循环的当前项是否在hash对象里
+        hash[target[key]] = true  // 如果不存在就将该项加入hash对象里key（数组中的值）：value（true），以便于下次从hash中取出key和数组中的值比较
+        result.push(target[key]) // 同时将该项存在新数组中
+      } 
+    }
+    return result
+  }
+  console.log(repeat(array), '===========')
+
+  // function wrapper(){
+  //   var name = 100
+  //   function inner(){
+  //     name++
+  //     console.log(name, 'in')
+  //   }
+  //   return inner
+  // }
+  // var demo = wrapper()
+  // demo()
+  // demo()
+  // console.log(name, 'name')
+
+  function test() {
+    var arr = []
+    for (let index = 0; index < 10; index++) {
+      console.log(index, 'index')
+      arr[index] = function() {
+        console.log(index)
+      }
+    }
+    // console.log(index, 'vvvv')
+    return arr
+  }
+  var my = test()
+  console.log(my, 'my')
+  my[0]()
+
+  // 
+  </script>
+</body>
+</html>

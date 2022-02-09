@@ -1,0 +1,14 @@
+1.安装
+npm i jest -g
+
+2.更改package.json中的script
+"script"： {
+  "test:unit": "jest",
+  // 或
+  "test": "node scripts/build.js vue -f global -d && jest --runInBand",
+}
+
+3.创建配置,生成jest.config.js
+npx ts-jest config:init
+或
+yarn ts-jest config:init

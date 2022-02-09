@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const date = new Date()
+    console.log(date,'date');
+
+
+    /**
+     * 访问日期组件
+    */
+    console.log(date.getFullYear(),'年');   // 获取年份（4 位数），注：getYear()有时会有问题，永远都不要用getYear
+    console.log(date.getMonth(),'月');      // 获取月份，从 0 到 11。结果须加1
+    console.log(date.getDate(),'日');      // 获取当月的具体日期，从 1 到 31，这个方法名称可能看起来有些令人疑惑。
+
+    console.log(date.getHours(),'时'); 
+    console.log(date.getMinutes(),'分');
+    console.log(date.getSeconds(),'秒');
+    console.log(date.getMilliseconds(),'毫秒');
+
+    console.log(date.getDay(),'毫秒'); // 获取一周中的第几天，从 0（星期日）到 6（星期六）
+
+    console.log(date.getTime(),'时间戳'); // 返回日期的时间戳
+
+
+    /**
+     * 设置日期组件
+    */
+   console.log('--------------------------------------------------------');
+    let basedate = new Date()
+
+    console.log(basedate.setFullYear(basedate.getFullYear() + 2), '后两年', basedate);
+    console.log(basedate.setMonth(basedate.getMonth() + 3), '后两月', basedate);
+    console.log(basedate.setDate(basedate.getDate() + 2), '后两天', basedate);
+
+    console.log(basedate.setHours(basedate.getHours() + 1),'后1时', basedate);
+    console.log(basedate.setMinutes(basedate.getMinutes() + 20),'后20分', basedate);
+    console.log(basedate.setSeconds(basedate.getSeconds() + 20),'后20秒', basedate);
+    console.log(basedate.setMilliseconds(basedate.getMilliseconds()),'毫秒', basedate);
+
+
+    /**
+     * setDate
+     * /
+    let dd = new Date('2022-01-19')
+    // 设置具体哪一日
+    d.setDate(18) // 2022-01-18
+
+
+    /**
+     * 获取当前时间戳
+     */
+     Date.now()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DOM节点</title>
+</head>
+<body>
+  <script>
+  /**
+    DOM 的最小组成单位叫做节点（node）。
+    节点的类型有七种:
+      Document：整个文档树的顶层节点
+      DocumentType：doctype标签（比如<!DOCTYPE html>）
+      Element：网页的各种HTML标签（比如<body>、<a>等）
+      Attribute：网页元素的属性（比如class="right"）
+      Text：标签之间或标签包含的文本
+      Comment：注释
+      DocumentFragment：文档的片段
+
+
+    节点树:
+      Document:代表整个文档
+      父节点关系（parentNode）：直接父节点
+      子节点关系（childNodes）：直接所有子节点
+      同级节点关系（sibling）：拥有同一个父节点的节点
+
+      子节点接口包括：firstChild（第一个子节点）、lastChild（最后一个子节点）等属性，
+      同级节点接口包括:nextSibling（紧邻在后的那个同级节点）和previousSibling（紧邻在前的那个同级节点）属性。
+    
+    节点类型：（获取节点类型必须先获取到节点才能调用nodeType获取到节点类型值）
+      Document：9
+      Element：1（比如网页的各种HTML标签等）
+      Attribute：2 （比如网页元素的属性）
+      Text：3 (标签之间或标签包含的文本)
+      Comment：8 (注释)
+      DocumentFragment：11 (文档的片段)  
+      DocumentType: 10 // document.doctype.nodeType
+
+    查找元素：
+      document.getElementById() // 通过id获取元素
+      document.querySelector() // 获取一个匹配元素
+      document.querySelectorAll() // 获取所有匹配元素
+      document.getElementsByTagName() // 通过标签名获取元素 --类似数组对象[]
+      document.getElementsByClassName() // 通过类名获取元素 --类似数组对象[]
+      document.createElement() // 生成元素节点，并返回该节点。
+    
+    获取元素所有属性：
+      Element.attributes // 返回一个类似数组的动态对象
+      <body bgcolor="yellow" onload="">
+        // 三种方式获取该属性
+        document.body.attributes[0]
+        document.body.attributes.bgcolor
+        document.body.attributes['ONLOAD']
+    
+    注：有些 HTML 属性名是 JavaScript 的保留字，转为 JavaScript 属性时，必须改名。主要是以下两个。
+      or属性改为htmlFor
+      class属性改为className
+    
+    属性操作标准方法：
+      这四个方法对所有属性（包括用户自定义的属性）都适用。
+      getAttribute()
+      setAttribute()
+      hasAttribute() // 表示当前元素节点是否包含指定属性。
+      removeAttribute()
+    
+    dataset 属性:
+      更好的解决方法是，使用标准提供的data-*属性。
+      <div id="mydiv" data-foo="bar">
+      var n = document.getElementById('mydiv');
+      n.dataset.foo // bar
+      n.dataset.foo = 'baz'
+    
+    DOM中监听函数：
+      function hello() {
+        console.log('Hello world');
+      }
+      var button = document.getElementById('btn');
+      button.addEventListener('click', hello, false); // 默认为false（监听函数只在冒泡阶段被触发）
+    
+    Event.preventDefault // 阻止默认事件触发，不会阻止事件冒泡
+    Event.stopPropagation() // 阻止事件冒泡--Propagation（传播）
+    
+    CSS(操作元素样式)：
+      document.querySelector('div').style.backgroundColor = 'red'
+      window.getComputedStyle方法，就用来返回浏览器计算后得到的最终规则。
+    
+
+    ajax请求：
+      1.创建 XMLHttpRequest 实例
+      2.发出 HTTP 请求
+      3.接收服务器传回的数据
+      4.更新网页数据
+      var xhr = new XMLHttpRequest();
+
+      xhr.onreadystatechange = function(){
+        // 通信成功时，状态值为4
+        if (xhr.readyState === 4){
+          if (xhr.status === 200){
+            console.log(xhr.responseText);
+          } else {
+            console.error(xhr.statusText);
+          }
+        }
+      };
+
+      xhr.onerror = function (e) {
+        console.error(xhr.statusText);
+      };
+
+      xhr.open('GET', '/endpoint', true); // 一旦新建实例，就可以使用open()方法发出 HTTP 请求
+      xhr.send(null);
+
+
+      0，表示 XMLHttpRequest 实例已经生成，但是实例的open()方法还没有被调用。
+      1，表示open()方法已经调用，但是实例的send()方法还没有调用，仍然可以使用实例的setRequestHeader()方法，设定 HTTP 请求的头信息。
+      2，表示实例的send()方法已经调用，并且服务器返回的头信息和状态码已经收到。
+      3，表示正在接收服务器传来的数据体（body 部分）。这时，如果实例的responseType属性等于text或者空字符串，responseText属性就会包含已经收到的部分信息。
+      4，表示服务器返回的数据已经完全接收，或者本次接收已经失败。
+    
+    JSON.stringify()和JSON.parse()
+
+  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+</html>

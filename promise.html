@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        Promise是一个构造函数，接受一个函数作为参数
+    </div>
+    <script>
+        console.log('1');
+        const pobj1 = new Promise((resolve, reject) => {
+            setTimeout(resolve, 1000, 'done');
+            console.log(resolve, reject, '异步1');
+        })
+        pobj1.then(() => {
+            console.log('then1');
+        })
+        console.log('2');
+        const pobj2 = new Promise((resolve, reject) => {
+            setTimeout(resolve, 500, 'done');
+            console.log(resolve, reject, '异步2');
+        })
+        pobj1.then(() => {
+            console.log('then2');
+        })
+
+        console.log('hi');
+
+        console.log(pobj1, pobj2, 'finally')
+
+        console.log('***************');
+        // function run1() {
+        //     console.log(123);
+        // }
+
+        // async function run2() {
+        //     console.log(0);
+        //     await setTimeout(() => {
+        //         console.log('settimeout');
+        //     },1000);
+        //     console.log(1);
+        // }
+
+        // run2()
+        // console.log(999);
+        // run1()
+    </script>
+</body>
+</html>

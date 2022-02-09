@@ -1,0 +1,273 @@
+
+
+注：（浅层解包，嵌套需.value）
+  当 ref 作为渲染上下文 (从 setup() 中返回的对象) 上的 property 返回并可以在模板中被访问时，它将自动浅层次解包内部值。只有访问嵌套的 ref 时需要在模板中添加 .value
+
+注：（ref在reactive中作为属性时，会自动解包） 
+  当 ref 作为响应式对象的 property 被访问或更改时，为使其行为类似于普通 property，它会自动解包内部值：
+
+注：解构reactive时需谨慎
+  为防止失去响应式可有如下方法
+  （1）使用toRefs或toRef    let { author, title } = toRefs(book)
+  （2）let { author, title } = reactive({author: ref(0), title: ref(0)})
+
+注： 
+  Ref 解包仅发生在被响应式 Object 嵌套的时候。当从 Array 或原生集合类型如 Map访问 ref 时，不会进行解包：
+
+  const books = reactive([ref('Vue 3 Guide')])
+  // 这里需要 .value
+  console.log(books[0].value)
+
+  const map = reactive(new Map([['count', ref(0)]]))
+  // 这里需要 .value
+  console.log(map.get('count').value)
+
+注： 减少.value的操作
+  （1）unref
+    const val = ref(0) || 0
+    const value = unref(val)
+  （2）ref对象嵌套在reactive中
+
+注： reactive 与 ref 比较
+  ref：
+    （1）显示调用，类型检查
+    （2）相比Reactive局限更少
+    （3）.value
+    （4）可被直接监听，不需要箭头函数包装
+    （5）Ref在模板中自动解包
+  reactive：
+    （1）自动unwrap Ref（不需要.value）
+    （2）在类型上和一般对象没有区别
+    （3）使用解构会使响应性丢失
+    （4）需要箭头函数包装才能使用'watch'
+    （5）可以直接使用ES6解构其中的Ref使用
+
+注：setup(props,{attrs, slots, emit})
+  在props对象中接收的属性会在setup种props里出现，否则父组件上的属性或事件会出现在setup中的attrs中
+  slots
+
+shallowReactive:
+  只针对第一层是响应式的，嵌套的都是非响应式的，如：
+    const state = shallowReactive({
+      active: false, // 可响应
+      subStatus: { // 不可响应，即使重新给subStatus赋值也不行
+        active: true
+      }
+    })
+shallowRef: 
+  只针对.value有响应
+  当改变ref非响应属性时手动更新页面时用triggerRef（ref）-》此方法必须传入ref对象
+
+
+ref：（内部是调用reactive的）
+  无论传入多少层的对象，改变属性值时都是响应的，如：
+  let re = ref({a:1,b:{c:1}})
+  function refChange() {
+    re.value.b.c++
+  }
+
+getCurrentInstance：访问内部组件实例
+  const {ctx} = getCurrentInstance()   // 不能使用ctx,ctx只能在开发环境上，不能在生产环境上用，可用proxy代替
+  const {proxy} = getCurrentInstance()
+
+v-bind="attrs" 父组件与子组件之间的桥梁（传递父属性到子组件里）
+
+Tip: 若要对传递给 setup() 的参数进行类型推断，你需要使用 defineComponent。
+
+useCssModule: 必须在setup里被调用且不能放在自定义的函数里,还要在style标签里加入module属性，才能获取到color和值
+  <style module>
+  .color {
+    color: red;
+  }
+  </style>
+
+setup中函数写法：
+    function Add() {...}
+    或
+    const add = () => {....}
+
+    watch(toRef(props, 'xxx'), () => {})
+
+css语法：
+    注：>>> 与 /deep/ 已经被废弃
+    /* deep selectors */
+    ::v-deep(.foo) {}
+    /* shorthand */
+    :deep(.foo) {}
+
+    /* targeting slot content */
+    ::v-slotted(.foo) {}
+    /* shorthand */
+    :slotted(.foo) {}
+
+    /* one-off global rule */
+    ::v-global(.foo) {}
+    /* shorthand */
+    :global(.foo) {}
+
+watch：（根据源码中总结的）
+    注：对于监听的数据（watch的第一个参数）要区分放不放（）=> { xxx }中
+    1.对于ref、计算属性、和reactive的响应式对象以及多数据源数组可直接监听，不需使用放入getter函数中
+    2.对于想要监听reactive内部的属性要放入getter函数中，或者想要深层监听reactive也要放入getter函数中
+
+  /**
+   * 1.修改ref相关的值用 变量.value
+   * 2.修改reactive相关属性值直接修改，不需用.value
+   * 3.变量和方法名都要在setup中返回才能暴露给模板实用
+   * 4.setup参数：
+   *    props：代理对象（具有相应性，不能解构）,
+   *    context：{attrs（Attribute），slots（插槽，非响应式对象），emit（触发事件方法）} (可以使用结构)
+   *    该函数中this为undefined
+   * 5.自定义事件的使用
+   *    1.子组件中-模板中：@click="customizeEvent"
+   *    setup(props,context) {
+   *        function customizeEvent () {
+   *            context.emit('emit-data','123')
+   *        }
+   *    }
+   *    2.父组件中
+   *    @emit-data="receiveData"
+   *    setup() {
+   *        function receiveData(data) {
+   *            console.log('接收打印的数据',data)
+   *        }
+   *    }
+   * 6.插槽slot
+   * 注意，v-slot 只能添加在 <template> 上 (只有一种例外情况:组件上也可使用)
+   *    1.模板上使用不传递数据时（template上使用v-slot时必须放在组件中）
+   *        <template v-slot:header>
+                <h1>头插槽</h1>
+            </template>
+            2.模板上使用传递数据时(可解构)
+            <template v-slot:header={ item }>
+                <h1>头插槽</h1>{{ item.xx }}
+            </template>
+        2.组件上使用
+            <parent v-slot:header={ item }>
+                <h1>头插槽</h1>{{ item.xx }}
+            </parent>
+   * 
+   * 
+   * 7.watch
+   *    1.监听对象
+   *    watch(() => state.count,(news, old) => {
+   *      console.log(news, '监听对象改变了');
+   *    })
+   *    // 侦听一个 getter函数
+   *   const state = reactive({ count: 0 })
+   *   watch(
+   *    () => state.count,
+   *    (count, prevCount) => {
+   * 
+   *    }
+   *   )
+   *
+   *   // 直接侦听一个 ref
+   *  const count = ref(0)
+   *  watch(count, (count, prevCount) => {
+   *  
+   *  })
+   *    2.监听多个
+   *    watch([fooRef, barRef], ([foo, bar], [prevFoo, prevBar]) => {
+   *       ...
+   *    })
+   * 8.toRefs:将一个响应式对象转换成普通对象，每个属性都会变成ref（对象的所有的属性）
+   * 9.toRef针对响应式对象中的单个属性转换，变成一个ref（对象中的单个属性）
+   * 10.v-model
+   *    父组件：
+   *    <hello-world
+   *      v-model:foo="val1"
+   *      v-model:bar="val2"
+   *      />
+   * 
+   *    子组件：
+   *    <input
+   *       :value="foo"
+   *       @input="$emit('update:foo', $event.target.value)"
+   *      />
+   *    <input
+   *       :value="bar"
+   *       @input="$emit('update:bar', $event.target.value)"
+   *      />
+   *    props: {
+   *        foo: {
+   *          type: [String, Number],
+   *        },
+   *        bar: {
+   *          type: [String, Number],
+   *        },
+            callback: {
+              type: Function as PropType<() => void>
+            },
+            book: {
+              type: Object as PropType<Book>,
+              required: true
+            },
+            arr: {
+              type: Array as PropType<string[]>,
+            },
+            ggg: {
+              type: String as PropType<'foo' | 'bar'>,
+              default: 'foo'
+            },
+   *    }
+   *    PropType用法：指明构造函数，一般用于Object、Array、Function的断言,
+        也用于基础类型断言为字面量类型
+   * 11.attrs:(1.不用先声明 2.包含事件 3.只有字符串类型 4.props 没有声明的属性，会在 attrs 里，若在 props 内声明了该属性，那么 attrs 里就不会出现该属性)
+   * 12.vue3中的EventHub（$on, $off, $once）被移除了，改为自行引入第三方库mitt
+   * 13.Filter（vue3中不再支持了，可以用method 或者 computed来代替）
+   * 14.Fragments（根节点可以有多个）
+   * 15.watch监听路由时：
+   *    watch的第一个参数必须是  Ref<T> | ComputedRef<T> | (() => T) | object | 数组
+   *    注：可直接监听不用转换为ref或reactive（直接在放在函数中如下：），因为route对象在vue-next-router源码中已经转换为了reactive对象了
+   *    watch(() => route.query, (news, old) => {console.log(news, old, '监听路由-child');})
+   * 16.
+   *
+   *
+   *
+   *
+    // 在DOM更新完之后执行，没法用nextTick,可使用`flush: 'post'`
+    // flush: sync, pre, post
+    watchEffect(() => {}, {flush: 'post'}) 
+    watchEffect(() => {}, {flush: 'sync'}) // 同步触发
+    // watchPostEffect
+    watchEffect 的别名，带有 flush: 'post' 选项。
+    // watchSyncEffect
+    watchEffect 的别名，带有 flush: 'sync' 选项。
+
+    // watch与watchEffect的区别
+    watchEffect会自动的收集依赖，而watch是明确的指定监听某个变量
+    watch可以获取到新值和旧值，watchEffect则只能取到最新的
+    watchEffect会在初始化的时候执行一次，类似computed
+
+
+    directive:
+      指令钩子参数：(el, binding, vnode, prevNode)
+        el: 指令绑定到的元素。这可用于直接操作 DOM。
+        binding:包含以下属性
+          instance：使用指令的组件实例。
+          value：传递给指令的值。例如，在 v-my-directive="1 + 1" 中，该值为 2。
+          oldValue：先前的值，仅在 beforeUpdate 和 updated 中可用。值是否已更改都可用。
+          arg：参数传递给指令 (如果有)。例如在 v-my-directive:foo 中，arg 为 "foo"。
+          modifiers：包含修饰符 (如果有) 的对象。例如在 v-my-directive.foo.bar 中，修饰符对象为 {foo: true，bar: true}。
+          dir：一个对象，在注册指令时作为参数传递。
+        vnode: 虚拟节点
+        prevNode: 上一个虚拟节点，仅在 beforeUpdate 和 updated 钩子中可用。
+      使用时指令传参如：v-loading:[loadingText]="loading"
+
+    import type {
+      APP,
+      Directive,
+      CSSProperties,
+      ExtractPropTypes,
+      InjectionKey,
+      VNode,
+      HTMLAttributes,
+      VNodeChild,
+      ComputedRef,
+      FunctionalComponent,
+      ComponentPublicInstance, DirectiveBinding, ObjectDirective,
+      PropType
+    } from 'vue';
+
+   */

@@ -1,0 +1,28 @@
+toEqual（）
+参数类型：Array/Object
+
+toBe(value)
+参数类型:原始值或实例对象的引用标识
+
+.not
+后面不带（）
+测试他的反面
+
+.toBeFalsy()
+在js里有6个假值（falsy）：false, 0, '', null, undefined
+其它都是真值（truthy）
+
+.toBeTruthy()
+与上面的相反
+
+.toMatch(regexp | string)
+参数类型：正则或字符串
+
+toBeNull（）
+只匹配 null
+toBeUndefined（）
+只会匹配 undefined
+toBeDefined（）
+是 toBeUndefined 的反义词
+
+注：Jest 识别三种测试文件，以.test.js 结尾的文件，以.spec.js 结尾的文件，和放到tests 文件夹中的文件。

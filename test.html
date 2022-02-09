@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button>dian</button>
+  <button>dian</button>
+  <button>dian</button>
+  <script>
+    // function Function(name) {
+    //     this.name = name
+    // }
+    // Function.eat = function() {  // 静态方法
+    //   console.log('eat了')
+    // }
+    // Function.prototype.call = function() {  // 实例方法
+    //     console.log('data')
+    // }
+
+    // var b = new Function('hujiao')
+    // b.call()
+    // Function.eat()
+    // console.log(Function === Function.prototype.constructor)
+    // console.log(b.__proto__ === Function.prototype)
+    
+    function f(i) {
+      return function() {
+          alert(i) // 没点击就不会执行该行代码
+      }
+    }
+    var btns = document.getElementsByTagName('button');
+    console.log(btns)
+    for(var i = 0; i < btns.length; i++){ // 没点击时for循环早已经执行了
+      console.log(i)
+      btns[i].onclick = f(i) // 等号右边需调用否则并传参不执行
+    }
+
+    var obj = {
+      x: 0,
+      y: function(){
+          console.log('添加',this.x);
+      }
+    };
+    obj.y()
+
+  
+    // setInterval(() => {
+    //   console.log('定时器')
+    // },10000)
+    // console.log('end')
+//     setTimeout(()=>{console.log("hi")
+// },0)
+console.log(1)
+console.log(1)
+console.log(1)
+console.log(1)
+console.log(1)
+console.log(1)
+console.log(1)
+console.log(1)
+console.log(1)
+console.log(1)
+console.log(1)
+  </script>
+  <script>
+console.log('-----------------------------');
+function test() {
+  console.log('test函数');
+}
+function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+    return fn.apply(thisArg, args);
+  };
+};
+const instance = bind(test,{a:1})
+console.log(instance, 'instance');
+  </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+
+// 1.钉钉内网穿透
+ding -config=ding.cfg -subdomain=nawang 8080
+devServer: {
+  disableHostCheck: true // 内网穿透
+}
+

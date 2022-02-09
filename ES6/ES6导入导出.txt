@@ -1,0 +1,92 @@
+1.export（export命令规定的是对外的接口，必须与模块内部的变量建立一一对应关系。）
+    export var firstName = 'Michael';
+    等价于：
+    var firstName = 'Michael';
+    export { firstName };
+
+    // 写法一
+    export var m = 1;
+
+    // 写法二
+    var m = 1;
+    export {m};
+
+    // 写法三
+    var n = 1;
+    export {n as m};
+
+
+2.import
+    import { firstName } from 'xxxx'; // import命令，用于加载profile.js文件，并从中输入变量
+    import { firstName as surname } from 'xxxx'; // 如果想为输入的变量重新取一个名字，import命令要使用as关键字，将输入的变量重命名。
+    import 'xxxx'; // import语句会执行所加载的模块(多次引入，只会执行一次)
+
+3.export default(本质上，export default就是输出一个叫做default的变量或方法，然后系统允许你为它取任意名字。)
+    例：
+    export default function () {
+        console.log('foo');
+    }
+    import customName from './export-default';
+
+    // 第一组
+    export default function crc32() { // 输出
+    // ...
+    }
+    import crc32 from 'crc32'; // 输入
+
+    // 第二组
+    export function crc32() { // 输出
+    // ...
+    };
+    import {crc32} from 'crc32'; // 输入
+
+
+    // modules.js
+    function add(x, y) {
+        return x * y;
+    }
+    export {add as default};
+    // 等同于
+    // export default add;
+
+    // app.js
+    import { default as foo } from 'modules';
+    // 等同于
+    // import foo from 'modules';
+
+4.export 与 import 的复合写法
+    export { foo, bar } from 'xxxxx';
+    // 可以简单理解为
+    import { foo, bar } from 'my_module';
+    export { foo, bar };
+
+5.跨模块常量（如果想设置跨模块的常量（即跨多个文件），或者说一个值要被多个模块共享）
+    export const A = 1;
+
+    // 如果要使用的常量非常多，可以建一个专门的constants目录，将各种常量写在不同的文件里面，保存在该目录下。
+    // constants/db.js
+    export const db = {
+        url: 'http://my.couchdbserver.local:5984',
+        admin_username: 'admin',
+        admin_password: 'admin password'
+    };
+
+    // constants/user.js
+    export const users = ['root', 'admin', 'staff', 'ceo', 'chief', 'moderator'];
+
+------------+--------------------+-------------------------------------------
+注：
+    export xxxx
+    import {} from ***
+
+    // 本质上，export default就是输出一个叫做default的变量或方法，然后系统允许你为它取任意名字。
+    export default ***
+    
+    import xxxx from **path**
+    ------不加{}----- // 因为一个模块只能有一个默认输出
+
+    // 整体加载
+    export xxxx1
+    export xxxx2
+    import * as circle from './circle';
+    

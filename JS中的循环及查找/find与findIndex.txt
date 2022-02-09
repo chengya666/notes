@@ -1,0 +1,19 @@
+1.find（）查找第一个符合条件的数组成员，找不到返回undefined
+[1, 4, -5, 10].find((n) => n < 0)
+// -5
+
+2.findIndex（）查找第一个符合条件的数组成员的位置，
+如果所有成员都不符合条件，则返回-1。
+[1, 5, 10, 15].findIndex(function(value, index, arr) {
+  return value > 9;
+}) // 2
+
+共同点：都是找符合条件的第一个
+
+
+注：这两个方法都可以接受第二个参数，用来绑定回调函数的this对象。
+function f(v){
+  return v > this.age;
+}
+let person = {name: 'John', age: 20};
+[10, 12, 26, 15].find(f, person); 

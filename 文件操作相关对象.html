@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>文件操作相关对象</title>
+</head>
+<body>
+  <script>
+  /*
+  ArrayBuffer 对象:(储存二进制数据的一段内存)只能通过视图（TypedArray视图和DataView视图)来读写
+    const buf = new ArrayBuffer(32); // 也是一个构造函数
+
+    const dataView = new DataView(buf);
+    dataView.getUint8(0) // 0
+
+    ArrayBuffer 对象有实例属性byteLength，表示当前实例占用的内存长度（单位字节）。
+    ArrayBuffer 对象有实例方法slice()，用来复制一部分内存。它接受两个整数参数，分别表示复制的开始位置（从0开始）和结束位置（复制时不包括结束位置），如果省略第二个参数，则表示一直复制到结束。
+  
+  Blob对象：Binary Large Object （二进制大型对象），用来读写文件
+    浏览器原生提供Blob()构造函数，用来生成实例对象。
+    new Blob(array [, options]) // 第一个对象：数组（字符串或二进制对象） 第二个参数：配置对象（只有一个属性type：''表示MIME类型）
+    
+    属性：
+      size：数据的大小
+      type:数据的类型
+
+    方法：slice 用来拷贝原来的数据，返回的也是一个Blob实例。
+      myBlob.slice(start, end, contentType)
+
+    获取文件信息：
+      // HTML 代码如下
+      // <input type="file" accept="image/*" multiple onchange="fileinfo(this.files)"/>
+
+      function fileinfo(files) {
+        for (var i = 0; i < files.length; i++) {
+          var f = files[i];
+          console.log(
+            f.name, // 文件名，不含路径
+            f.size, // 文件大小，Blob 实例属性
+            f.type, // 文件类型，Blob 实例属性
+            f.lastModifiedDate // 文件的最后修改时间
+          );
+        }
+      }
+      注：File 实例对象是一个特殊的 Blob 实例，增加了name和lastModifiedDate属性。
+
+    下载文件：
+      AJAX 请求时，如果指定responseType属性为blob，下载下来的就是一个 Blob 对象。
+      function getBlob(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.onload = function () {
+          callback(xhr.response);
+        }
+        xhr.send(null);
+      }
+
+    生成URL：浏览器允许使用URL.createObjectURL()方法，针对 Blob 对象生成一个临时 URL，以便于某些 API 使用。
+    读取文件：取得 Blob 对象以后，可以通过FileReader对象，读取 Blob 对象的内容，即文件内容。
+
+  */
+  </script>
+</body>
+</html>

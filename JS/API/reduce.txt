@@ -1,0 +1,59 @@
+定义： [].reduce()
+  array.reduce(function(accumulator, currentValue, currentIndex, arr), initialValue);
+  /*
+    accumulator:  必需。累计器
+    currentValue: 必需。当前元素
+    
+    currentIndex: 可选。当前元素的索引；                    
+    arr:          可选。要处理的数组
+    initialValue: 可选。传递给函数的初始值，相当于accumulator的初始值
+  */
+
+  常见用法：
+    // 求加法（乘法同理）
+    let arr = [1, 2, 3, 4, 5];
+    arr.reduce((sum, curr) => sum + curr, 0);       // 得到15
+    此基础上还可以求平均值
+
+
+
+    // 求最大值（最小值同理）
+    let arr = [23,123,342,12];
+    let max = arr.reduce((pre,cur,index,arr) => {
+      return pre > cur ? pre : cur
+    });                                               // 得到 342
+
+
+    // 将字符串转换为整数
+    let str = "4321"
+    ​
+    let strParseInt = str.split('')                   // 得到 ['4', '3', '2', '1', '4']
+        .map(item => {return item.charCodeAt() - 48}) // 得到 [4, 3, 2, 1, 4]
+        .reduce((a, b) => {return a * 10 + b})        // 得到 43214
+
+    // 数组去重
+    let arr = [1, 2, 3, 4, 4, 1]
+    let newArr = arr.reduce((pre,cur) => {
+        if(!pre.includes(cur)){
+          return pre.concat(cur)
+        }else{
+          return pre
+        }
+    },[])                                  // 得到 [1, 2, 3, 4]
+
+    const newarr = arr.filter((item, index) => {
+      return arr.indexOf(item) === index
+    }) // 得到 [1, 2, 3, 4]
+
+
+    数组维度转换
+    let arr = [[0, 1], [2, 3], [4, 5]]      // 二维数组
+    let newArr = arr.reduce((pre,cur) => {
+        return pre.concat(cur)              // 合并pre 与 cur, 并返回一个新数组
+    },[])
+    console.log(newArr);
+
+
+定义：[].reduceRight()
+  接受一个函数作为累加器（accumulator）和数组的每个值（从右到左）将其减少为单个值。
+  ...

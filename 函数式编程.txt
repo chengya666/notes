@@ -1,0 +1,87 @@
+
+1.纯函数（对给定的输入返还相同输出的函数）
+  不依赖外部环境计算，不会产生副作用，提高函数的复用性。
+  可读性强。
+  可组装复杂任务。符合模块化概念和单一职责原则。
+
+2.高阶函数（以函数作为输入或输出的函数）
+  1.抽象 2.缓存 3.惰性执行
+
+
+
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+arr.map(String); // ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+3.柯里化（把多元函数转换成一元函数）
+  const curry = function (fn) {
+    return function curriedFn(...args) {
+      if (args.length < fn.length) {
+        return function () {
+          return curriedFn(...args.concat([...arguments]))
+        }
+      }
+      return fn(...args)
+    }
+  }
+
+单一原则 =》 
+
+组合函数compose：执行顺序从右至左
+管道pipe: 执行顺序是从左至右
+
+  const pipe = function (...fns) {
+    return function (val) {
+      return fns.reduce((total,fn) => {
+        return fn(total)
+      },val)
+    }
+  }
+
+  const compose = function (...fns) {
+    return function (val) {
+      return fns.reverse().reduce((total,fn) => {
+        return fn(total)
+      },val)
+    }
+  }
+
+原始的类型防改变：可使用const 如 const fool = '123'
+防止对象内部状态改变：可使用值对象的方式
+  functio zipCode (code, location ) ( 
+    let code = code ;
+    let location = location || '' 
+    return { 
+      code function () { 
+        return code
+      }
+      location : function () { 
+        return _location
+      }
+      fromString : function ( str) { 
+        let parts = str.split ('- ); 
+        return zipCode(parts[0], parts[l]) ; 
+      }
+      toString : function () { 
+        return code + '-' + _location ;
+      }
+    }
+  }
+js函数式编程库
+  lodash.js、ramda.js、Underscore.js
+
+
+函数式编程有点：
+  1.促使将任务分解成简单的函数
+  2.使用流式的调用链来处理数据
+  3.通过响应式范式降低事件驱动代码的复杂性
+
+分解、组合
+总结：分解为多个简单函数（每个函数具有单一职责）、组合多个简单的函数
+
+1.链式
+
+
+闭包用途：
+  1.信息隐藏
+  2.模块化开发
+

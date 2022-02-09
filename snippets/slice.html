@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>slice</title>
+</head>
+<body>
+  <script>
+    /**
+     * slice() 方法可从已有的数组中返回选定的元素。(返回一个新的数组)
+     * <!!!!> 请注意，该方法并不会修改数组，而是返回一个子数组。
+    */
+    const vb = [1,2,3,4]
+    const vk = vb.slice().map(item => {
+      item = item * 2
+      return item
+    })
+    console.log(vb) // [1, 2, 3, 4]
+    console.log(vk) // [2, 4, 6, 8]
+  </script>
+</body>
+</html>

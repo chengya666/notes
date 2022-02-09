@@ -1,0 +1,51 @@
+// 将类数组转为数组
+[].slice.call(list)
+
+// 获取节点类型
+node.nodeType
+
+// 判断prop是否是自身的属性
+obj.hasOwnProperty(prop)
+
+// 返回对象自身的所有可枚举的属性的键名（键名集合组成的数组）
+Object.keys()
+
+// ast 抽象语法树的简称
+
+// img的src没值时就不会触发onload事件
+<img src="logo.png" onload="loadImage()" width="336" height="36">
+
+// Hot Module Replacement(简称HMR) 热模块替换即热更新
+
+guards：守卫
+
+// 注：mitt源码     这个表达式的意思很简单，有值取值，无值初始化。
+export default function mitt(all: EventHandlerMap) {
+    all = all || Object.create(null);
+    return {
+        /**
+         * Register an event handler for the given type.
+         *
+         * @param  {String} type    Type of event to listen for, or `"*"` for all events
+         * @param  {Function} handler Function to call in response to given event
+         * @memberOf mitt
+         */
+        on(type: string, handler: EventHandler) {
+            (all[type] || (all[type] = [])).push(handler);
+        }
+    };
+}
+在 on 函数之中，有这么一句：(all[type] || (all[type] = []))
+
+// property与attribute的区别
+property是DOM中的属性，是JavaScript里的对象；
+attribute是HTML标签上的特性，它的值只能够是字符串；
+
+// payload是一种以JSON格式进行数据传输的一种方式。
+// 数组重写: ['push','pop','shift','unshift','splice','sort','reverse']
+
+响应式原理：
+当创建Vue实例时，vue会遍历data里的属性，Object.defineProperty 为属性添加getter和setter对数据的读取进行劫持。
+getter：依赖收集
+setter：派发更新
+每个组件的实例都会有对应的watcher实例。

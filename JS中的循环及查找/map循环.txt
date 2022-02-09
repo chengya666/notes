@@ -1,0 +1,11 @@
+
+map又称数组的映射
+
+  var arr = [1,2,3,4]
+  var arr1 = arr.map(function(a,b,c) {
+    console.log(a) // a表示数组的每一项
+    console.log(b) // b表示数组的下标
+    console.log(c) // a表示数组本身，也就是arr
+    return a // 若a是对象，可对a经过增加key-value
+    return a * 6 // 对每一项乘以6，得到新数组 [6,12,18,24]
+  })

@@ -1,0 +1,60 @@
+// * 通配符
+"test": "tap test/\*.js"
+
+// 传参 用--标明
+"serve": "http-server -p 9090 dist/",
+
+// 转义 \
+"format": "prettier --write --parser typescript \"packages/**/*.ts?(x)\"",
+
+// main
+指定加载的入口文件 当用户安装你的包后，require（'my-module'）返回的是module.exports属性
+当不指定main字段时，默认值是模块根目录下面的index.js
+
+// rollup 打包需要的入口文件
+"module": "dist/vue.runtime.esm.js",
+
+// 当你发布package时，具体那些文件会发布上去
+"files": [
+  "src",
+  "dist/*.js",
+  "types/*.d.ts"
+],
+
+// workspace
+管理多个子project的repo,这样你可以在每个子project里使用独立的package.json管理你的依赖，
+又不用分别进到每一个子project里去yarn install/upfrade安装/升级依赖，
+而是使用一条yarn命令去处理所有依赖就像只有一个package.json一样。通过这样设置后，
+会把所有的依赖提升到顶层的 node_modules 中
+保证所有的project公用的依赖只会被下载和安装一次。
+
+// types ts项目全局类型声明文件
+"types": "dist/vue-router.d.ts",
+// typings与types同义
+"typings": ""
+
+// 
+types: 'dist/vue-router.d.ts'
+
+// 代码检查
+"lint-staged": {
+
+}
+
+
+// script 脚本命令
+由于 npm 脚本就是 Shell 脚本，因为可以使用 Shell 通配符。
+1.* 表示任意文件名，** 表示任意一层子目录 （防止被 Shell 转义，要将星号转义）
+2.双引号''也需要转义
+3.传参使用--
+4.执行多个命令使用&&来连接
+
+// 使用minimist执行结果
+const params = require('minimist')(process.argv.slice(2))
+console.log(params); // -a beep -b boop => { _: [], a: 'beep', b: 'boop' }
+console.log(params); // -- -a beep -b boop => { _: [ '-a', 'beep', '-b', 'boop' ] }
+
+
+！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+！！！！！！！注：package.json中很多配置项是针对发布后或打包时或使用该包时的配置；！！！！！！
+！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！

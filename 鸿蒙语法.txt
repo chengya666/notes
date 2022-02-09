@@ -1,0 +1,85 @@
+0.事件绑定
+  @click="xxx"
+  onclick="xxx"
+  ...
+
+1.列表渲染
+  for="array"：其中array为数组对象，array的元素变量默认为$item。
+  for="v in array"：其中v为自定义的元素变量，元素索引默认为$idx。
+  for="(i, v) in array"：其中元素索引为i，元素变量为v，遍历数组对象array。
+
+2.条件渲染
+  （1） if/elif/else
+  （2）show
+      当show为真时，节点正常渲染；当为假时，仅仅设置display样式为none。
+
+3.逻辑控制块
+  block
+  虚拟节点
+  注意block标签只支持for和if属性。
+
+4.模板引用
+  <element name='自定义命名引入的组件名' src='实际引入的组件的路径'></element>
+
+注：
+  针对数组内的数据修改，请使用splice方法生效数据绑定变更。
+  hml中的js表达式不支持ES6语法。
+
+样式导入合并：
+  @import 'xx.css';
+
+样式预编译
+  目前支持less、sass和scss的预编译
+  注：使用样式预编译时，需要将原css文件后缀改为less、sass或scss
+
+
+应用对象
+  $def   使用this.$app.$def获取在app.js中暴露的对象。
+
+页面对象
+  $refs    获取DOM元素
+  private  页面的数据模型，private下的数据属性只能由当前页面修改。
+  public   页面的数据模型，public下的数据属性的行为与data保持一致。
+  props     支持Array/Object，用于组件之间的通信
+  computed  Object  用于在读取或设置进行预先处理，计算属性的结果会被缓存。
+
+方法
+  数据方法
+    $set  添加新属性或修改已有属性  this.$set('key',value)：添加数据属性。
+    $delete   this.$delete('key')：删除数据属性。
+  
+  公共方法
+    $element 获得指定id的组件对象，如果无指定id，则返回根组件对象。
+    $root 获得顶级ViewModel实例。
+    $parent 获得父级ViewModel实例。
+    $child  获得指定id的子级自定义组件的ViewModel实例。如：this.$child('xxx')
+  
+  事件方法
+    $watch  监听data中的属性变化 this.$watch('key', callback)
+
+生命周期
+  页面生命周期
+    ...
+    
+应用生命周期
+  onCreate  当应用创建时调用。
+  onDestroy 当应用退出时触发。
+
+
+格式化代码
+  ctrl + alt + L
+
+代码自动跳转
+  按住 Ctrl 键，鼠标点击代码中的类、方法、参数、变量等名称，可以自动跳转到定义处。
+  
+代码快速注释
+  ctrl + /
+
+代码查找
+  两次shift,即可打开代码查找界面
+
+代码结构树
+  Alt + 7 / Ctrl + F12
+
+手机（Phone）、平板（Tablet）、车机（Car）、智慧屏（TV）、智能穿戴
+（Wearable），轻量级智能穿戴（LiteWearable）和智慧视觉（Smart Vision）

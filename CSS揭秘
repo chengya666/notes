@@ -1,0 +1,20 @@
+1.当某些值相互依赖时，应该把它们的相互关系用代码表达出来。（行高与字号关系）
+    font-size: 20px;
+    line-height: 30px;
+    可改成：
+    font-size: 20px;
+    line-height: 1.5;
+
+2.双层边框
+    background: yellowgreen;
+    border: 10px solid #655;
+    outline: 5px solid deeppink;
+
+3.hsla（半透明黑色或白色）
+    推 荐 使 用 HSLA 而 不 是RGBA 来产生半透明的白色，因为它的字符长度更短，敲起来也更快。这归功于它的重复度更低。
+    如： background-color: hsla(0,0%,100%,.9);
+
+4.半透明边框
+    border: 10px solid hsla(0,0%,100%,.5);
+    background: white;
+    background-clip: padding-box;

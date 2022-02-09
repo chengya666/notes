@@ -1,0 +1,194 @@
+阮一峰：http://es6.ruanyifeng.com/#docs/let
+
+1. let与const
+
+   let：适用于所在的代码块内有效(块级作用域内有效)
+   let只声明未赋值则为undefined
+   另for循环特殊之处：就是设置循环变量的那部分是一个父作用域，而循环体内部是一个单独的子作用域。
+   for (let i = 0; i < 3; i++) {
+      let i = 'abc';
+      console.log(i);
+    }
+    // abc
+    // abc
+    // abc
+    表明函数内部的变量i与循环变量i不在同一个作用域，有各自单独的作用域。
+
+    const:声明一个只读的常量。一旦声明，常量的值就不能改变。
+    const的作用域与let命令相同：只在声明所在的块级作用域内有效。否则报错
+    不可重复声明
+    特殊：对于引用类型是可以改变的
+
+2. 变量的解构赋值
+  （1）数组结构：
+    let a = 1;
+    let b = 2;
+    let c = 3;
+    let [a, b, c] = [1, 2, 3];
+
+    let [foo, [[bar], baz]] = [1, [[2], 3]];
+    foo // 1
+    bar // 2
+    baz // 3
+  （2）对象解构赋值
+    let { foo, bar } = { foo: 'aaa', bar: 'bbb' };
+    foo // "aaa"
+    bar // "bbb"
+
+    // 别名解构赋值
+    const {c,d:e} = {c:1,d:2}
+    console.log(e) // 2
+    
+    // 有默认值的对象解构赋值（少见）
+    const {
+      plugins = [], // 等号右边对象中不存在plugins时（没有的话直接使用左边默认的）
+      strict = false, // 亦是如此
+      devtools
+    } = {
+      plugins: [1],
+      strict: false,
+      devtools:1
+    }
+
+  3. 扩展运算符（...）:将一个数组转为用逗号分隔的参数序列。
+    console.log(...[1, 2, 3])
+    // 1 2 3
+
+    合并新数组方法：
+    const arr1 = ['a', 'b'];
+    const arr2 = ['c'];
+    const arr3 = ['d', 'e'];
+
+    // ES5 的合并数组
+    arr1.concat(arr2, arr3);
+    // [ 'a', 'b', 'c', 'd', 'e' ]
+
+    // ES6 的合并数组
+    [...arr1, ...arr2, ...arr3]
+    // [ 'a', 'b', 'c', 'd', 'e' ]
+
+    与解构赋值结合：
+    const [first, ...rest] = [1, 2, 3, 4, 5];
+    first // 1
+    rest  // [2, 3, 4, 5]
+
+    不仅可打散数组，也可打散对象：
+      var obj = { a:1, b: 2}
+      var pp = {
+        ...obj,
+        c:3
+      }
+      console.log(pp) // { a:1, b:2, c:3}
+
+    与字符串：
+    [...'hello']
+    // [ "h", "e", "l", "l", "o" ]
+
+  4. rest参数（与...用法相反）形式为：...变量名  用于获取多余参数放入数组中
+    注意：rest 参数之后不能再有其他参数（即只能是最后一个参数），否则会报错。
+
+    function push(array, ...items) {
+      // 此时items已经是一个数组了
+      items.forEach(function(item) {
+        array.push(item);
+        console.log(item);
+      });
+    }
+    var a = [];
+    push(a, 1, 2, 3)
+
+  5. 类class
+
+    class Point {
+      // static 表示该方法不会被实例继承，而是直接通过类(构造函数)来调用
+      static classMethod() {
+        return 'hello';
+      }
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+      }
+
+      toString() {
+        return '(' + this.x + ', ' + this.y + ')';
+      }
+    }
+    var b = new Point() // 必须用new调用，否则会报错
+    b.toString()
+
+    class ColorPoint extends Point {
+      constructor(x, y, color) {
+        注意：只有调用super之后，才可以使用this关键字，否则会报错。因为子类实例的构建，基于父类实例，只有super方法才能调用父类实例。
+        super(x, y); // 调用父类的constructor(x, y) super关键字表示父类的构造函数，用来新建父类的this对象。
+        this.color = color;
+      }
+
+      toString() {
+        return this.color + ' ' + super.toString(); // 调用父类的toString()
+      }
+    }
+
+  6. 静态方法与实例方法
+    静态方法：定义在构造函数上（类上有static关键字）的方法
+    实例方法：定义在原型对象上的方法
+  
+  7. 原型链
+
+    构造函数（Function）→   原型对象(Function.prototype)
+    ↓生成实例对象             ↑自动继承原型对象上的属性和方法
+    实例对象（new Function()）
+
+  8. 拼接数组(结合es6打散数组)
+    var base = [1]
+    var add = [2, 3]
+    // 将add拼接到base里
+    base.push(...add) // 3
+    console.log(base) // 1,2,3
+  
+  9.获取数组最后一个元素
+    var base = [2,3]
+    var res = base.pop()
+    console.log(res) // 3
+
+  10.Promise
+      // 基本用法
+      const promise = new Promise(function(resolve, reject) {
+        /**
+        * resolve函数的作用是，将Promise对象的状态从“未完成”变为“成功”（即从 pending 变为 resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；
+        * reject函数的作用是，将Promise对象的状态从“未完成”变为“失败”（即从 pending 变为 rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去
+        */
+        isAsync = setTimeout(() => {},1000)
+        if (isAsync){
+          resolve({a:1}); // 会将参数{a:1}传出去
+          // resolve() // 结果会是undefined，传递出去的值也会是undefined
+        } else {
+          // reject({a:'err'}); // 会将参数{a:'err'}传出去
+          reject(); // 结果会是undefined，传递出去的值也会是undefined
+        }
+      });
+      const p = promise.then(res => {
+        console.log(res, 'succ') // res则是resolve(value)中value的值，没有传value则是undefined
+      }).catch(err => {
+        console.log(err, 'err') // err则是reject(error)中error的值，没有传error则是undefined
+      })
+
+      // Promise.resolve()
+      Promise.resolve('foo')
+      // 等价于
+      new Promise(resolve => resolve('foo'))
+
+      // Promise.reject()
+      const p = Promise.reject('出错了');
+      // 等同于
+      const p = new Promise((resolve, reject) => reject('出错了'))
+
+11.for...of...
+    // item为数组项
+    for (const item of 数组) {}
+  
+    // []第一个位置是下标，第二个位置是数组项，
+    for (const [index, item] of 数组.entries()) {}
+
+    注：可使用return（退出循环并且不会往下执行）、 break（退出循环，继续往下执行）
+
+
