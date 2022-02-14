@@ -9,4 +9,14 @@
 // 4.copy-webpack-plugin 拷贝资源文件
 // 5.optimize-css-assets-webpack-plugin css压缩
 
+// 批量引入文件 require.context
+// const mainRoutes = []
+// function importAll(r) {
+//   r.keys().forEach((key) => {
+//     mainRoutes.push(r(key).default)
+//   })
+// }
+// importAll(require.context('./router/modules', false, /\.js$/))
+// console.log(mainRoutes)
+
 
