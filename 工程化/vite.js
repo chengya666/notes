@@ -25,3 +25,18 @@ import.meta.env.VITE_BASE_URL
     // package.json 中的 dependencies 列表
     // 包管理器的 lockfile，例如 package-lock.json, yarn.lock，或者 pnpm-lock.yaml
     // 可能在 vite.config.js 相关字段中配置过的
+
+
+// vue3 在vite.config中无法使用import.meta.env.*的解决办法：使用loadEnv来读取env
+// import { loadEnv } from 'vite'
+// export default ({ mode }) => {
+//   return defineConfig({
+//           plugins: [vue()],
+//           base:loadEnv(mode, process.cwd()).VITE_APP_NAME
+//       })
+// }
+
+// 相关插件
+// unplugin-auto-import/vite // 会有ts报错提示， 可使用 vue-global-api
+// unplugin-vue-components/vite
+// vue-global-api

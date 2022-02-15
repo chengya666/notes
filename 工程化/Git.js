@@ -51,6 +51,9 @@
 // git reflog
 // git reset --soft 'commit id'
 
+// 修改之前的commit message
+// git commit --amend
+
 
 // github中：
         // 生成ssh秘钥
