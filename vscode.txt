@@ -12,6 +12,12 @@
 10.vite
 11.Quokka.js或Wallaby.js 可运行JavaScript与Typescript
 12.Code Spell Checker 代码拼写检查
+13.Snipped 代码截图
+14.Eslint
+15.Prettier Code formatter
+16.open in brower
+17.Auto Close Tag
+18.Path Intellisense
 
 // 以单词为单位进行跳转
 ctrl + 方向键
@@ -26,6 +32,8 @@ ctrl + p
 
 // 快速进入vscode中settings文件里
 点击右上角按钮Open Settings
+
+// github网页中按键盘快捷键点.可显示为网页版vscode编辑器模式
 
 注释
 /////////////////////////////

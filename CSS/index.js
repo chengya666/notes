@@ -4,3 +4,20 @@
 
 // 总之：对于em和rem的区别一句话概括：em相对于父元素，rem相对于根元素。
 
+
+// css变量
+// :root 表示 html 选择器，除了CSS权重比它高以外，其他都是一样的。
+// 1.--前缀定义变量
+// :root {
+//   --main-bg-color: pink;
+// }
+// 2.通过var函数使用变量
+// body {
+  // 如果 --main-bg-color未定义，则值为blue
+//   background-color: var(--main-bg-color, blue);
+// }
+
+
+// env() 主要用于手机端全面屏 底部tabbar
+// https://developer.mozilla.org/zh-CN/docs/Web/CSS/env()
+

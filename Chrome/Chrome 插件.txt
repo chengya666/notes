@@ -5,5 +5,7 @@
 5.iGG谷歌访问助手
 6.JSONView
 7.Octotree - GitHub code tree
+8.Omni - Bookmark, History, & Tab Manager
+9.Proxy SwitchyOmega
 
 注：https://github.com/xxxx 可用 https://github1s.com/xxxx 代替vscode视图版
