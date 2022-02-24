@@ -34,6 +34,21 @@
 // git remote add origin git@github.com:cheng-shao/vue3.git
 // git push -u origin main
 
+
+// 撤销 `git add` 和 `git commit`
+// git restore --staged <文件> (撤销所有 `git add`)
+// git reset HEAD file_test.md (撤销部分 `git add`)
+// git reset --soft HEAD^ (撤销所有 `git commit`)
+
+// HEAD^ 的意思是上一个版本，也可以写成 HEAD~1。如果你进行了 2 次 commit，想都撤回，可以使用 HEAD~2。
+
+// --soft 的意思是不删除工作空间改动代码，撤销 commit，不撤销 git add .。
+
+// --mixed 的意思是：不删除工作空间改动代码，撤销commit，并且撤销 git add . 操作。这个为默认参数，git reset --mixed HEAD^ 和 git reset HEAD^ 效果是一样的。
+
+// --hard 的意思是删除工作空间改动代码，撤销 commit，撤销 git add .。 注意完成这个操作后，会删除工作空间代码！！！恢复到上一次的 commit 状态。慎重！！！
+
+
 // 合并（两种方法）
 // 第一种： git merge
 // 第二种： git rebase
