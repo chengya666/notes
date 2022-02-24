@@ -26,6 +26,12 @@
 // 检查配置信息
 // git config --list
 
+// 帮助
+// 打开命令手册
+// git help config
+// 查看某个命令的参数
+// 如：git add -h 或 git reset -h
+
 // 远程仓库为空仓库时，本地项目执行以下操作：
 // git init
 // git add .
