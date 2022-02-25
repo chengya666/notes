@@ -26,12 +26,9 @@
 // 检查配置信息
 // git config --list
 
-<<<<<<< HEAD
 // 目录树结构
 // tree .
 
-=======
->>>>>>> ad43a0498867991164e22dcfa9ef62f3918a9a8d
 // 帮助
 // 打开命令手册
 // git help config
@@ -51,6 +48,8 @@
 
 // 查看尚未暂存的文件更新了哪些部分
 // git diff
+// 比对已暂存文件与最后一次提交的文件差异
+// git diff --staged
 
 
 // 撤销 `git add` 和 `git commit`
