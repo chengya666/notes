@@ -26,6 +26,15 @@
 // 检查配置信息
 // git config --list
 
+// 目录树结构
+// tree .
+
+// 帮助
+// 打开命令手册
+// git help config
+// 查看某个命令的参数
+// 如：git add -h 或 git reset -h
+
 // 远程仓库为空仓库时，本地项目执行以下操作：
 // git init
 // git add .
@@ -33,6 +42,12 @@
 // git branch -M main
 // git remote add origin git@github.com:cheng-shao/vue3.git
 // git push -u origin main
+
+// 简洁方式输出
+// git status -s
+
+// 查看尚未暂存的文件更新了哪些部分
+// git diff
 
 
 // 撤销 `git add` 和 `git commit`
