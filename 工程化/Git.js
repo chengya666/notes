@@ -26,9 +26,12 @@
 // 检查配置信息
 // git config --list
 
+<<<<<<< HEAD
 // 目录树结构
 // tree .
 
+=======
+>>>>>>> ad43a0498867991164e22dcfa9ef62f3918a9a8d
 // 帮助
 // 打开命令手册
 // git help config
