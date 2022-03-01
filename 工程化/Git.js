@@ -26,8 +26,30 @@
 // 检查配置信息
 // git config --list
 
+// cat命令主要用来查看文件内容
+// cat b.txt
+
+// echo 创建文件并写入内容 (>创建，>> 追加)
+// echo '内容' > 文件名
+
+// 删除
+// rm -rf 文件/文件名
+
+// 暂存
+// git stash
+// 弹出暂存应用到当前分支
+// git stash pop
+// 将堆栈中的内容应用到当前目录，不会将内容从堆栈中删除，可多次应用到工作目录中，适应于多个分支的情况。
+// 查看堆栈中最新保存的stash和当前目录的差异。
+// git stash apply
+
+// git stash show
+// git stash list
+
 // 目录树结构
 // tree .
+// 加上 `-a` 跳过使用暂存区域的方式，不在执行git add命令
+// git commit -a -m ''
 
 // 帮助
 // 打开命令手册
@@ -43,6 +65,18 @@
 // git remote add origin git@github.com:cheng-shao/vue3.git
 // git push -u origin main
 
+// 新建分支
+// git branch xxxx
+// 新建分支并切换到新分支上
+// git checkout -b xxx
+// 查看所有分支
+// git branch -a
+
+// 切换分支
+// git checkout xxx
+// 删除分支
+// git branch -d xxx
+
 // 简洁方式输出
 // git status -s
 
@@ -51,6 +85,11 @@
 // 比对已暂存文件与最后一次提交的文件差异
 // git diff --staged
 
+// 移除某个文件
+// git rm
+
+// 每个版本以整行展示 格式 id: 提交描述
+// git log --pretty=oneline
 
 // 撤销 `git add` 和 `git commit`
 // git restore --staged <文件> (撤销所有 `git add`)
@@ -65,10 +104,37 @@
 
 // --hard 的意思是删除工作空间改动代码，撤销 commit，撤销 git add .。 注意完成这个操作后，会删除工作空间代码！！！恢复到上一次的 commit 状态。慎重！！！
 
+// 将另外一个分支的某个或某些提交合并当前分支
+// git cherry-pick 提交startid,...
+// 多个时包含startid的话需要加^
+// git cherry-pick 提交startid^,...
+
+
+// rebase交互模式 interactive
+// git rebase -i 9891a9d
+// 操作命令
+// pick	采用该提交（默认行为）
+// reword	采用该提交，但要求修改提交记录的备注
+// edit	采用该提交，但要求修改提交记录的信息，如：作者名称，邮箱地址等
+// squash	采用该提交，但它会被并入前一条提交
+// fixup	类似“squash”，但是会丢弃这条提交记录的日志信息
+// exec	执行指定的shell脚本或命令
+// drop	丢弃该提交
+// 强制推送到远程分支
+// git push -f origin test_rebase
+// 撤销rebase修改
+// git rebase --abort
+
 
 // 合并（两种方法）
 // 第一种： git merge
 // 第二种： git rebase
+
+// 当我们拉取公共分支最新代码的时候建议使用rebase，也就是git pull -r或git pull --rebase
+// 往公共分支上合代码的时候，使用 merge 。（若使用rebase的话会把别人的提交历史篡改）
+
+// --ff: (fast-forward) 默认的提交方式
+// --no-ff: 指的是强行关闭fast-forward方式
 
 // 回退（两种方法）
 // 第一种： 后面的提交记录会消失
