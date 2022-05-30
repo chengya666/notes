@@ -1,5 +1,6 @@
 
-// 1.钉钉内网穿透
+// 1.钉钉内网穿透：https://open.dingtalk.com/document/resourcedownload/http-intranet-penetration
+
 ding -config=ding.cfg -subdomain=nawang 8080
 devServer: {
   disableHostCheck: true // 内网穿透

@@ -52,6 +52,12 @@
     
     注: interface 前是不需要 declare 的
 
+    declare 与 declare global
+    在 d.ts 声明文件中，任何的 declare 默认就是 global 的了，所以你在 d.ts 文件中是不能出现 declare global 的。
+    只有在模块文件中的定义，如果想要全局就使用 declare global回复
+
+    declare是声明全局的，不需要引入即可使用
+    export 也是声明全局的，但需要引入才能使用
 
     */
   </script>
