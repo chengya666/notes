@@ -108,6 +108,9 @@
 // git cherry-pick 提交startid,...
 // 多个时包含startid的话需要加^
 // git cherry-pick 提交startid^,...
+// --abort 放弃
+// --quit 退出
+// --continue 继续
 
 
 // rebase交互模式 interactive

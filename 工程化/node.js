@@ -5,10 +5,13 @@ process.cwd()
 // node引入方式两种
 // 1.require方式
 // const path = require('path')
+// 也可解构：
+// const { join, resolve, extname } = require('path')
 // 2.import方式
 // import {resolve,....xxxx} from 'path'
 
 // __dirname、__filename、 process.cwd() 这三个都是绝对路径
+// __dirname、__filename这两者默认是node内置变量，分别是当前文件所在目录的路径、当前文件所在的文件路径
 
 // path.join()
 // 用于连接路径。该方法的主要用途在于，会正确使用当前系统的路径分隔符，Unix系统是"/"，Windows系统是"\"。
@@ -31,5 +34,10 @@ process.cwd()
 // fs的替代品，包含了graceful-fs，并添加了一些额外的文件系统方法，并支持Promise
 // fs-extra
 
-// 调用shell和本地外部程序的javascript封装
 // execa
+// 调用shell和本地外部程序的javascript封装
+execa(file, [arguments], [options])
+
+// .nvmrc
+
+// .npmrc

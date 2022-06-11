@@ -39,11 +39,11 @@
 const fool = ' yuuuuu code'
 const goo = 'hghhhh'
 
-function add () {
+function add() {
     if (fool) {
         add()
     }
-        
+
 }
 
 

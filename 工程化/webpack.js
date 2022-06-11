@@ -20,3 +20,26 @@
 // console.log(mainRoutes)
 
 
+// filemanager-webpack-plugin:
+// 作用：npm run build 执行完自动压缩为.zip格式文件
+// 打包完压缩为zip
+const FileManagerPlugin = require('filemanager-webpack-plugin')
+const { dirname, sep } = require('path')
+const projectUrl = `./${dirname(__filename).split(sep).pop()}.zip`
+
+// vue.config.js里
+configureWebpack: {
+  plugins: [
+    new FileManagerPlugin({
+      events: {
+        onEnd: {
+          delete: [projectUrl],
+          archive: [{ source: './dist', destination: projectUrl }]
+        }
+      }
+    })
+  ]
+}
+
+
+

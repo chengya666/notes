@@ -1,0 +1,5 @@
+hosts路径
+C:\Windows\System32\drivers\etc  
+
+github地址
+https://ip.tool.chinaz.com/github.com

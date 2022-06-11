@@ -61,3 +61,5 @@
             // don't forget to call next()
         }
     }
+// 路由动态传参
+总结：query传参通过path跳转，params传参通过name跳转
