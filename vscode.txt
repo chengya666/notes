@@ -18,6 +18,9 @@
 16.open in brower
 17.Auto Close Tag
 18.Path Intellisense
+19.Shell(Shell 是一个VS Code扩展，可让您直接从vscode编辑器执行 shell 命令。)
+20.ShellCheck(Shell代码类型检查，编写 Shell 脚本必备)
+21.shellman(提供一些常见 Shell 代码片段)
 
 // 以单词为单位进行跳转
 ctrl + 方向键

@@ -1,0 +1,21 @@
+1.Prompts  提示
+2.minimist 解析命令参数
+3.kolorist 终端颜色
+4.zx 在node中写shell脚本
+5.npm-run-all 是用于并行或顺序运行多个npm脚本的CLI工具，
+官方的npm run-script命令是不能运行多个脚本的，因此如果我们想运行多个脚本，它就不能满足我们的需求了。
+
+主命令是npm-run-all。 run-s和run-p都是简写命令。
+run-s表示按顺序执行多个脚本
+  // 以下两种方式一样
+  run-s clean lint build
+  npm run clean && npm run lint && npm run build
+  
+参数占位符--
+
+run-p表示并行。
+
+
+{1}, {2}, ... 分别表示第一个参数，第二个参数.
+{@} -- 所有参数.
+{*} -- 所有参数作为组合。
