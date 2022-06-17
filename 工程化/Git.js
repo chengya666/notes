@@ -166,3 +166,6 @@
         // eval $(ssh-agent -s)
         // 将秘钥添加到代理中
         // ssh-add ~/.ssh/id_rsa
+
+// git使用https方式管理代码
+// git config --global credential.helper store
