@@ -19,3 +19,8 @@ run-p表示并行。
 {1}, {2}, ... 分别表示第一个参数，第二个参数.
 {@} -- 所有参数.
 {*} -- 所有参数作为组合。
+
+
+6.gradient-string
+(在终端输出漂亮的颜色渐变)
+Beautiful color gradients in terminal output
