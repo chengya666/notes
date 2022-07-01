@@ -255,3 +255,9 @@
     ;()()
     ;[]
 
+
+  16.判断对象中是否含有对应属性
+  function hasProp(obj, key) {
+    return key in obj
+  }
+

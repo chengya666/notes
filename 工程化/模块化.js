@@ -14,3 +14,7 @@ const target = (exports.x = 代码)
 const accept = require('文件路径')
 或
 const { x } = require('文件路径')
+
+
+// 导入json文件 得到一个对象
+const file = require('文件路径.json')

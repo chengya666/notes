@@ -44,7 +44,9 @@
 //   listen       8083;
 //   server_name  192.168.1.123;
 //   location / {
+          // 根目录
 //       root html;
+          // 首页
 //       index index.html index.html;
 //       try_files $uri $uri/ /index.html;
 //   }
@@ -62,5 +64,20 @@
 //       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 //   }
      
+// }
+
+// try_files
+// 尝试读取文件
+// nginx的一个$uri变量
+// 配合命名location，可以部分替代原本常用的rewrite配置方式
+// 完整的解释就是：try_files 去尝试到网站目录读取用户访问的文件，如果第一个变量存在，就直接返回；
+// 不存在继续读取第二个变量，如果存在，直接返回；不存在直接跳转到第三个参数上。
+// location  / {
+//   root  /var/www/build;
+//   index  index.html index.htm;
+//   try_files $uri $uri/ @router;
+// }
+// location @router {
+//   rewrite ^(.+)$ /index.html last;
 // }
 

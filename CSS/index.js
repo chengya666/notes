@@ -13,11 +13,14 @@
 // }
 // 2.通过var函数使用变量
 // body {
-  // 如果 --main-bg-color未定义，则值为blue
+// 如果 --main-bg-color未定义，则值为blue
 //   background-color: var(--main-bg-color, blue);
 // }
 
 
 // env() 主要用于手机端全面屏 底部tabbar
 // https://developer.mozilla.org/zh-CN/docs/Web/CSS/env()
+
+// 网站灰白效果
+filter: grayscale(1)
 
