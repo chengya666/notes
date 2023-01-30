@@ -18,3 +18,5 @@
 
   （2）鼠标悬停某个元素时展开或收起 断点
     鼠标放在悬停元素上，调出命令：Ctrl + Shift + P
+    
+  （3）简化console的打印信息（比如vue3的ref）Enable custom formatters
