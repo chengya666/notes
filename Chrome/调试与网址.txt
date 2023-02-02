@@ -20,3 +20,5 @@
     鼠标放在悬停元素上，调出命令：Ctrl + Shift + P
     
   （3）简化console的打印信息（比如vue3的ref）Enable custom formatters
+  
+  （4）debugger时，可在浏览器console控制台打印此时机所有的变量，查看变量的值
