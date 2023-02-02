@@ -9,6 +9,8 @@
 
   // 显示Google中所有以chrome://为协议的网址
   chrome://about/
+  
+ 自带截屏：ctrl + shift + P 输入full选择Capture full size screenshot
 
 
 
